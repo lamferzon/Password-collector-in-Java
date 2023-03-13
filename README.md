@@ -1,1 +1,1 @@
-# Password-collector-in-Java
+# Password collector in Java
