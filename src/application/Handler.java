@@ -55,6 +55,7 @@ class Handler {
 		
 		System.out.println("");
 		
+		resp = resp.toUpperCase();
 		switch(resp) {
 		case "Y":
 			// TODO
