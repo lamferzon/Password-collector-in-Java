@@ -2,7 +2,6 @@ package application;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.FileSystems;
@@ -28,9 +27,7 @@ class Installer {
 		// Part 2
 		Account admin = createAdmin();
 		accountList.add(admin);
-		writeAdminOnJSON(admin, rootPath);
 		System.out.println("\nInstallation details: \n" + data + "\n");
-		System.out.println("* Installation ended *\n");
 		return data;
 	}
 	
@@ -69,7 +66,7 @@ class Installer {
 		JSONArray array = new JSONArray();
 		array.add(obj2);
 		
-		writeOnJSON(data.getRootPath() + "/app_data.json", array);
+		Util.writeOnJSON(data.getRootPath() + "/app_data.json", array);
 		System.out.println("5. Application-data file filled.");
 	}
 	
@@ -88,39 +85,8 @@ class Installer {
 		System.out.print("Account password: ");
 		String accountPw = bR.readLine();
 		
-		return new AdminAccount(name, surname, phoneNumber, accountEmail, 
-				accountPw, true);	
-	}
-	
-	@SuppressWarnings("unchecked")
-	private static void writeAdminOnJSON(Account admin, String rootPath) {
-		JSONObject obj1 = new JSONObject();
-		obj1.put("account_ID", admin.getID());
-		obj1.put("account_type", admin.getAccountType().toString());
-		obj1.put("name", admin.getName());
-		obj1.put("surname", admin.getSurname());
-		obj1.put("phone_number", admin.getPhoneNumber());
-		obj1.put("account_email", admin.getAccountEmail());
-		obj1.put("account_pw", admin.getAccountPw());
-		
-		JSONObject obj2 = new JSONObject();
-		obj2.put("account", obj1);
-		JSONArray array = new JSONArray();
-		array.add(obj2);
-		
-		writeOnJSON(rootPath + "/accounts_data.json", array);
-		System.out.println("\n6. Administrator created.");
-	}
-	
-	private static void writeOnJSON(String filePath, JSONArray array) {
-		try(FileWriter appDataFile = new FileWriter(filePath)){
-            appDataFile.write(array.toJSONString()); 
-            appDataFile.flush();
-            appDataFile.close();
- 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+		return new AdminAccount(name, surname, phoneNumber, 
+				accountEmail, accountPw);	
 	}
 	
 }

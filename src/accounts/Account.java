@@ -11,6 +11,15 @@ public abstract class Account {
 	protected String accountEmail;
 	protected String accountPw;
 	
+	public Account(String name, String surname, String phoneNumber,
+			String accountEmail, String accountPw) {
+		this.name = name;
+		this.surname = surname;
+		this.phoneNumber = phoneNumber;
+		this.accountEmail = accountEmail;
+		this.accountPw = accountPw;
+	}
+	
 	// Getters
 	public String getID() {
 		return this.ID;

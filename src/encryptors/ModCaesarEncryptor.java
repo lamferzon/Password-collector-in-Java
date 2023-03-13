@@ -1,4 +1,5 @@
 package encryptors;
+
 import java.util.Random;
 
 public class ModCaesarEncryptor extends CaesarEncryptor{
