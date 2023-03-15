@@ -115,4 +115,37 @@ public class Util {
         }
 	}
 	
+	public static boolean checkPhoneNumber(String phoneNumber) {
+		boolean flag = false;
+		if(!phoneNumber.matches("[0-9]+")) {
+			flag = true;
+			System.out.println("Attention: phone number contains invalid characters. "
+					+ "Please insert another one.");
+		}
+		return flag;
+	}
+	
+	public static boolean checkEmail(String email, List<Account> accountList) {
+		boolean flag = false;
+		for(Account acc : accountList) {
+			if(acc.getAccountEmail().compareTo(email) == 0) {
+				flag = true;
+				System.out.println("Attention: email address already exists. "
+						+ "Please insert another one.");
+				break;
+			}
+		}
+		return flag;
+	}
+	
+	public static boolean checkPw(String pw) {
+		boolean flag = false;
+		if(pw.length() < 8) {
+			flag = true;
+			System.out.println("Attention: pw has to have almost 8 characters. "
+					+ "Please insert another one.");
+		}
+		return flag;
+	}
+	
 }

@@ -12,6 +12,7 @@ class Application {
 	// Fields
 	private AppData data;
 	private List<Account> accountList;
+	private Handler handler;
 	
 	// Builder
 	protected Application(){
@@ -21,7 +22,7 @@ class Application {
 	// Methods
 	protected void startApplication() throws IOException{
 		this.data = Initializer.startInitilizer(this.accountList);
-		//System.out.println(this.accountList.get(1));
+		handler = new Handler(this.data, this.accountList);
 		home();
 		Util.writeAccountsOnJSON(accountList, data);
 	}
@@ -48,10 +49,10 @@ class Application {
 				cont = false;
 				break;
 			case 1:
-				Handler.login(this.accountList);
+				handler.login();
 				break;
 			case 2:
-				Handler.createAccount(this.accountList, this.data);
+				handler.createAccount();
 				break;
 			}
 			

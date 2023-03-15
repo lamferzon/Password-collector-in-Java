@@ -11,19 +11,29 @@ import accounts.UserAccount;
 
 class Handler {
 	
+	// Fields
+	private AppData data;
+	private List<Account> accountList;
+	private Account currentAccount;
+	private BufferedReader bR;
+	
+	// Builder
+	protected Handler(AppData data, List<Account> accountList) {
+		this.data = data;
+		this.accountList = accountList;
+		this.currentAccount = null;
+		this.bR = new BufferedReader(new InputStreamReader(System.in));
+	}
+	
 	// Methods
-	protected static void createAccount(List<Account> accountList, 
-			AppData data) throws IOException {
-		BufferedReader bR = new BufferedReader(new InputStreamReader(System.in));
-		
+	protected void createAccount() throws IOException {
 		System.out.println("\nCreate an account:");
 		
 		String resp;
 		do {
 			System.out.print("Premium account? (Y/N) ");
-			resp = bR.readLine();
-		}while(resp.toUpperCase().compareTo("Y") != 0 &&
-				resp.toUpperCase().compareTo("N") != 0);
+			resp = bR.readLine().toUpperCase();
+		}while(resp.compareTo("Y") != 0 && resp.compareTo("N") != 0);
 		
 		String name = null;
 		String surname = null;
@@ -33,33 +43,30 @@ class Handler {
 		
 		do {
 			System.out.print("Your name: ");
-			name = bR.readLine();
+			name = this.bR.readLine();
 		}while(name.compareTo("") == 0);
-		
 		do {
 			System.out.print("Your surname: ");
-			surname = bR.readLine();
+			surname = this.bR.readLine();
 		}while(surname.compareTo("") == 0);
-		
 		do {
 			System.out.print("Phone number: ");
-			phoneNumber = bR.readLine();
-		}while(phoneNumber.compareTo("") == 0);
-		
+			phoneNumber = this.bR.readLine();
+		}while(phoneNumber.compareTo("") == 0 || 
+				Util.checkPhoneNumber(phoneNumber));
 		do {
 			System.out.print("Account email: ");
-			accountEmail = bR.readLine();
-		}while(accountEmail.compareTo("") == 0);
-		
+			accountEmail = this.bR.readLine();
+		}while(accountEmail.compareTo("") == 0 || Util.checkEmail(accountEmail,
+				this.accountList));
 		do {
 			System.out.print("Account password: ");
-			accountPw = bR.readLine();
-		}while(accountPw.compareTo("") == 0);
+			accountPw = this.bR.readLine();
+		}while(accountPw.compareTo("") == 0 || Util.checkPw(accountPw));
 		
 		System.out.println("");
 		
 		Account acc = null;
-		resp = resp.toUpperCase();
 		switch(resp) {
 		case "Y":
 			acc = new PremiumUserAccount(name, surname, phoneNumber, 
@@ -71,13 +78,15 @@ class Handler {
 			break;
 		}
 		
-		accountList.add(acc);
-		File pwFile = new File(data.getPwPath() + "/pw_" + acc.getID() + 
+		this.accountList.add(acc);
+		
+		File pwFile = new File(this.data.getPwPath() + "/pw_" + acc.getID() + 
 				".json");
 		pwFile.createNewFile();
 	}
 
-	protected static void login(List<Account> accountList) {
+	protected void login() {
 		// TODO
 	}
+	
 }

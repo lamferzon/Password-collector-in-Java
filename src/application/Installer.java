@@ -71,19 +71,36 @@ class Installer {
 	}
 	
 	private static Account createAdmin() throws IOException {
-		BufferedReader bR = new BufferedReader(new InputStreamReader(System.in));
-		
 		System.out.println("\nCreate an administrator account:");
-		System.out.print("Your name: ");
-		String name = bR.readLine();
-		System.out.print("Your surname: ");
-		String surname = bR.readLine();
-		System.out.print("Phone number: ");
-		String phoneNumber = bR.readLine();
-		System.out.print("Account email: ");
-		String accountEmail = bR.readLine();
-		System.out.print("Account password: ");
-		String accountPw = bR.readLine();
+		
+		BufferedReader bR = new BufferedReader(new InputStreamReader(System.in));
+		String name;
+		String surname;
+		String phoneNumber;
+		String accountEmail;
+		String accountPw;
+		
+		do {
+			System.out.print("Your name: ");
+			name = bR.readLine();
+		}while(name.compareTo("") == 0);
+		do {
+			System.out.print("Your surname: ");
+			surname = bR.readLine();
+		}while(surname.compareTo("") == 0);
+		do {
+			System.out.print("Phone number: ");
+			phoneNumber = bR.readLine();
+		}while(phoneNumber.compareTo("") == 0 || 
+				Util.checkPhoneNumber(phoneNumber));
+		do {
+			System.out.print("Account email: ");
+			accountEmail = bR.readLine();
+		}while(accountEmail.compareTo("") == 0);
+		do {
+			System.out.print("Account password: ");
+			accountPw = bR.readLine();
+		}while(accountPw.compareTo("") == 0 || Util.checkPw(accountPw));
 		
 		return new AdminAccount(name, surname, phoneNumber, 
 				accountEmail, accountPw);	
