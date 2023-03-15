@@ -130,7 +130,7 @@ public class Util {
 		for(Account acc : accountList) {
 			if(acc.getAccountEmail().compareTo(email) == 0) {
 				flag = true;
-				System.out.println("Attention: email address already exists. "
+				System.out.println("\nAttention: email address already exists. "
 						+ "Please insert another one.");
 				break;
 			}
@@ -142,7 +142,7 @@ public class Util {
 		boolean flag = false;
 		if(pw.length() < 8) {
 			flag = true;
-			System.out.println("Attention: pw has to have almost 8 characters. "
+			System.out.println("\nAttention: pw has to have almost 8 characters. "
 					+ "Please insert another one.");
 		}
 		return flag;

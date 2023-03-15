@@ -44,9 +44,10 @@ class Initializer {
 			if(resp.toUpperCase().compareTo(String.valueOf('Y')) == 0) {
 				String rootPath = startPath + "/Pw_C0ll3ct0r";
 				data = Installer.installApp(rootPath, accountList);
-			}else
+			}else {
 				System.out.println("\nExecution terminated.");
-			
+				System.exit(0);
+			}
 		}else {
 			String rootPath = startPath;
 			
