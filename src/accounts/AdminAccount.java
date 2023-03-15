@@ -2,7 +2,7 @@ package accounts;
 
 public class AdminAccount extends Account{
 	
-	// Constructor
+	// Builder
 	public AdminAccount(String name, String surname, String phoneNumber,
 			String accountEmail, String accountPw) {
 		super(name, surname, phoneNumber, accountEmail, accountPw);

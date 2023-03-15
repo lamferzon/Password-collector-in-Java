@@ -2,7 +2,7 @@ package accounts;
 
 public abstract class Account {
 	
-	// Data
+	// Fields
 	protected String ID;
 	protected AccountTypes accountType;
 	protected String name;
@@ -11,6 +11,7 @@ public abstract class Account {
 	protected String accountEmail;
 	protected String accountPw;
 	
+	// Builder
 	public Account(String name, String surname, String phoneNumber,
 			String accountEmail, String accountPw) {
 		this.name = name;

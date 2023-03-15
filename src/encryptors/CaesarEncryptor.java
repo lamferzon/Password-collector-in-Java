@@ -2,7 +2,7 @@ package encryptors;
 
 public class CaesarEncryptor implements EncryptorMethods{
 	
-	// Data
+	// Fields
 	protected static final int MIN_LAG = 3;
 	
 	//Methods

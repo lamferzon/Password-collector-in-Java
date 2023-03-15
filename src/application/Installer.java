@@ -8,7 +8,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.List;
 import org.json.simple.*;
 import accounts.*;
 
@@ -16,7 +16,7 @@ class Installer {
 	
 	// Methods
 	protected static AppData installApp(String rootPath, 
-			ArrayList<Account> accountList) throws IOException {
+			List<Account> accountList) throws IOException {
 		
 		// Part1
 		AppData data = new AppData(rootPath);

@@ -8,17 +8,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.FileSystems;
 import java.nio.file.InvalidPathException;
-import java.util.ArrayList;
+import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import accounts.Account;
+import accounts.AccountTypes;
+import accounts.UserAccount;
 
 class Initializer {
 	
 	// Methods
-	protected static AppData startInitilizer(ArrayList<Account> accountList) throws IOException {
+	protected static AppData startInitilizer(List<Account> accountList) throws IOException {
 		BufferedReader bR = new BufferedReader(new InputStreamReader(System.in));
 		AppData data = null;
 		
@@ -55,6 +57,7 @@ class Initializer {
 			Util.readAccountsFromJSON(rootPath, accountList);
 			System.out.println("");
 		}
+		setCounters(accountList);
 		return data;
 	}
 	
@@ -91,6 +94,17 @@ class Initializer {
 			invalid = true;
 		}
 		return invalid;
+	}
+	
+	private static void setCounters(List<Account> accountList) {
+		int counter = 0;
+		
+		for(Account acc : accountList)
+			if(acc.getAccountType() == AccountTypes.USER || 
+					acc.getAccountType() == AccountTypes.PREMIUM_USER)
+				counter++;
+		
+		UserAccount.setProgNum(counter);
 	}
 	
 }

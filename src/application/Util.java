@@ -4,13 +4,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import accounts.Account;
 import accounts.AdminAccount;
+import accounts.PremiumUserAccount;
 import accounts.UserAccount;
 import encryptors.CaesarEncryptor;
 import encryptors.ModCaesarEncryptor;
@@ -19,7 +20,7 @@ public class Util {
 	
 	// Methods
 	@SuppressWarnings("unchecked")
-	public static void writeAccountsOnJSON(ArrayList<Account> list, 
+	public static void writeAccountsOnJSON(List<Account> list, 
 			AppData data) {
 		CaesarEncryptor ce = new ModCaesarEncryptor();
 		JSONArray JSONList = new JSONArray();
@@ -45,7 +46,7 @@ public class Util {
 	}
 	
 	public static void readAccountsFromJSON(String rootPath,
-			ArrayList<Account> list) {
+			List<Account> list) {
 		JSONParser parser = new JSONParser();
 		
 		try {
@@ -65,14 +66,12 @@ public class Util {
 	}
 	
 	public static void addAccountToList(JSONObject us, 
-			ArrayList<Account> list) {
+			List<Account> list) {
 		JSONObject obj = (JSONObject) us.get("account");
 		CaesarEncryptor ce = new ModCaesarEncryptor();
 		String[] decrypted = ce.decrypts((String) obj.get("phone_number"), 
 				(String) obj.get("account_email"), 
 				(String) obj.get("account_pw"));
-		
-		@SuppressWarnings("unused")
 		String ID = (String) obj.get("account_ID");
 		String accountType = (String) obj.get("account_type");
 		String name = (String) obj.get("name");
@@ -88,10 +87,11 @@ public class Util {
 			break;
 		case "USER":
 			account = new UserAccount(name, surname, phoneNumber, 
-					accountEmail, accountPw);
+					accountEmail, accountPw, ID);
 			break;
 		case "PREMIUM_USER":
-			// TODO
+			account = new PremiumUserAccount(name, surname, phoneNumber, 
+					accountEmail, accountPw, ID);
 			break;
 		}
 		list.add(account);

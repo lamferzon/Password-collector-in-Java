@@ -3,12 +3,12 @@ package accounts;
 public class Triplet<K extends Comparable<K>, V, I> 
 	implements Comparable<Triplet<K, ?, ?>>{
 	
-	// Data
+	// Fields
 	private K key;
 	private V value;
 	private I information;
 	
-	// Constructor
+	// Builder
 	public Triplet(K key, V value, I information){
 		this.key = key;
 		this.value = value;

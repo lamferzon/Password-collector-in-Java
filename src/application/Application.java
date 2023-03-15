@@ -4,15 +4,16 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 import accounts.*;
 
 class Application {
 	
-	// Data
+	// Fields
 	private AppData data;
-	private ArrayList<Account> accountList;
+	private List<Account> accountList;
 	
-	// Constructor
+	// Builder
 	protected Application(){
 		this.accountList = new ArrayList<>();
 	}
@@ -50,7 +51,7 @@ class Application {
 				Handler.login(this.accountList);
 				break;
 			case 2:
-				Handler.createAccount(this.accountList);
+				Handler.createAccount(this.accountList, this.data);
 				break;
 			}
 			

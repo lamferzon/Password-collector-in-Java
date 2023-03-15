@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class Singleton {
 	
-	// Data
+	// Fields
 	private static Application app = null;
 	
 	// Methods

@@ -4,11 +4,11 @@ import java.util.Random;
 
 public class ModCaesarEncryptor extends CaesarEncryptor{
 	
-	// Data
+	// Fields
 	protected int max_lag;
 	protected Random ran;
 	
-	// Methods
+	// Builders
 	public ModCaesarEncryptor(){
 		max_lag = 10;
 		ran = new Random();
@@ -18,7 +18,8 @@ public class ModCaesarEncryptor extends CaesarEncryptor{
 		this.max_lag = max_lag;
 		ran = new Random();
 	}
-
+	
+	// Methods
 	public String[] encrypts(String... strs) {
 		String[] results = new String[strs.length];
 		for(int i = 0; i < strs.length; i++) {

@@ -5,14 +5,13 @@ import java.time.format.DateTimeFormatter;
 
 class AppData {
 	
-	// Data
+	// Fields
 	private String rootPath;
 	private String pwPath;
 	private LocalDateTime datetime;
 	private DateTimeFormatter formatter;
 	
-	
-	// Constructors
+	// Builders
 	protected AppData() {
 		this.formatter = DateTimeFormatter.ofPattern("uuuu/MM/dd HH:mm:ss");
 	}

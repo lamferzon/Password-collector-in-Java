@@ -4,6 +4,6 @@ public enum AccountTypes {
 	
 	ADMINISTRATOR,
 	USER,
-	PREMIUM_USER
+	PREMIUM_USER 
 	
 }

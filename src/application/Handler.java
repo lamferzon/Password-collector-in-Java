@@ -1,16 +1,19 @@
 package application;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.util.List;
 import accounts.Account;
+import accounts.PremiumUserAccount;
 import accounts.UserAccount;
 
 class Handler {
 	
 	// Methods
-	protected static void createAccount(ArrayList<Account> accountList) throws IOException {
+	protected static void createAccount(List<Account> accountList, 
+			AppData data) throws IOException {
 		BufferedReader bR = new BufferedReader(new InputStreamReader(System.in));
 		
 		System.out.println("\nCreate an account:");
@@ -55,19 +58,26 @@ class Handler {
 		
 		System.out.println("");
 		
+		Account acc = null;
 		resp = resp.toUpperCase();
 		switch(resp) {
 		case "Y":
-			// TODO
+			acc = new PremiumUserAccount(name, surname, phoneNumber, 
+					accountEmail, accountPw);
 			break;
 		case "N":
-			accountList.add(new UserAccount(name, surname, phoneNumber, 
-					accountEmail, accountPw));
+			acc = new UserAccount(name, surname, phoneNumber, 
+					accountEmail, accountPw);
 			break;
 		}
+		
+		accountList.add(acc);
+		File pwFile = new File(data.getPwPath() + "/pw_" + acc.getID() + 
+				".json");
+		pwFile.createNewFile();
 	}
 
-	protected static void login(ArrayList<Account> accountList) {
+	protected static void login(List<Account> accountList) {
 		// TODO
 	}
 }
