@@ -13,23 +13,23 @@ class Application {
 	private AppData data;
 	private List<Account> accountList;
 	private Handler handler;
+	BufferedReader bR;
 	
 	// Builder
 	protected Application(){
 		this.accountList = new ArrayList<>();
+		bR = new BufferedReader(new InputStreamReader(System.in));
 	}
 	
 	// Methods
 	protected void startApplication() throws IOException{
 		this.data = Initializer.startInitilizer(this.accountList);
 		handler = new Handler(this.data, this.accountList);
-		home();
+		homeApp();
 		Util.writeAccountsOnJSON(accountList, data);
 	}
 	
-	private void home() throws NumberFormatException, IOException {
-		BufferedReader bR = new BufferedReader(new InputStreamReader(System.in));
-		
+	private void homeApp() throws NumberFormatException, IOException {
 		boolean cont = true;
 		
 		do {
@@ -50,6 +50,7 @@ class Application {
 				break;
 			case 1:
 				handler.login();
+				homeAccount();
 				break;
 			case 2:
 				handler.createAccount();
@@ -58,6 +59,37 @@ class Application {
 			
 		}while(cont);
 		System.out.println("\nBye bye!");
+	}
+	
+	private void homeAccount() throws NumberFormatException, IOException {
+		boolean cont = true;
+		
+		do {
+			int choice;
+			System.out.println("* Pw_C0ll3ct0r home account *\n");
+			System.out.println("1. Manage your account.");
+			System.out.println("2. Manage your passwords.");
+			System.out.println("0. Logout.");
+			
+			do {
+				System.out.print("Your choice: ");
+				choice = Integer.parseInt(bR.readLine());
+			}while(choice < 0 || choice > 2);
+			
+			switch(choice) {
+			case 0:
+				cont = false;
+				break;
+			case 1:
+				// TODO 
+				break;
+			case 2:
+				// TODO
+				break;
+			}
+			
+		}while(cont);
+		System.out.println("");
 	}
 	
 }
