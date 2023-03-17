@@ -29,19 +29,23 @@ class Application {
 		Util.writeAccountsOnJSON(accountList, data);
 	}
 	
-	private void homeApp() throws NumberFormatException, IOException {
+	private void homeApp() throws IOException {
 		boolean cont = true;
+		int choice = 0;
 		
 		do {
-			int choice;
-			System.out.println("* Pw_C0ll3ct0r home *\n");
+			System.out.println("* Pw_C0ll3ct0r - HOME *\n");
 			System.out.println("1. Login.");
 			System.out.println("2. Create an account.");
 			System.out.println("0. Exit.");
 			
 			do {
 				System.out.print("Your choice: ");
-				choice = Integer.parseInt(bR.readLine());
+				try {
+					choice = Integer.parseInt(bR.readLine());
+				}catch(NumberFormatException e) {
+					e.setStackTrace(null);
+				}
 			}while(choice < 0 || choice > 2);
 			
 			switch(choice) {
@@ -49,8 +53,8 @@ class Application {
 				cont = false;
 				break;
 			case 1:
-				handler.login();
-				homeAccount();
+				if(handler.login())
+					yourHome();
 				break;
 			case 2:
 				handler.createAccount();
@@ -61,35 +65,100 @@ class Application {
 		System.out.println("\nBye bye!");
 	}
 	
-	private void homeAccount() throws NumberFormatException, IOException {
+	private void yourHome() throws NumberFormatException, IOException {
 		boolean cont = true;
+		int choice = 0;
 		
 		do {
-			int choice;
-			System.out.println("* Pw_C0ll3ct0r home account *\n");
+			System.out.println("* Pw_C0ll3ct0r - YOUR HOME *\n");
 			System.out.println("1. Manage your account.");
 			System.out.println("2. Manage your passwords.");
 			System.out.println("0. Logout.");
 			
 			do {
 				System.out.print("Your choice: ");
-				choice = Integer.parseInt(bR.readLine());
+				try {
+					choice = Integer.parseInt(bR.readLine());
+				}catch(NumberFormatException e) {
+					e.setStackTrace(null);
+				}
 			}while(choice < 0 || choice > 2);
+			
+			switch(choice) {
+			case 0:
+				handler.logout();
+				cont = false;
+				break;
+			case 1:
+				homeAccountManager(); 
+				break;
+			case 2:
+				homePwManager();
+				break;
+			}
+			
+		}while(cont);
+		System.out.println("");
+	}
+
+	private void homeAccountManager() throws IOException {
+		boolean cont = true;
+		int choice = 0;
+		
+		do {
+			System.out.println("\n* Pw_C0ll3ct0r - ACCOUNT MANAGER *\n");
+			System.out.println("1. Change your name.");
+			System.out.println("2. Change your surname.");
+			System.out.println("3. Change your phone number.");
+			System.out.println("4. Change your surname.");
+			System.out.println("5. Change your account password.");
+			System.out.println("6. See your account details.");
+			System.out.println("7. Delete your account (only Premium).");
+			System.out.println("0. Come back.");
+			
+			do {
+				System.out.print("Your choice: ");
+				try {
+					choice = Integer.parseInt(bR.readLine());
+				}catch(NumberFormatException e) {
+					e.setStackTrace(null);
+				}
+			}while(choice < 0 || choice > 7);
 			
 			switch(choice) {
 			case 0:
 				cont = false;
 				break;
 			case 1:
-				// TODO 
+				handler.changeAccountName();
 				break;
 			case 2:
+				handler.changeAccountSurname();
+				break;
+			case 3:
+				// TODO
+				break;
+			case 4:
+				// TODO
+				break;
+			case 5:
+				// TODO
+				break;
+			case 6:
+				handler.printAccountDetails();
+				break;
+			case 7:
 				// TODO
 				break;
 			}
 			
 		}while(cont);
 		System.out.println("");
+	}
+
+	private void homePwManager() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

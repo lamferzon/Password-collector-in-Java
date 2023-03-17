@@ -51,23 +51,23 @@ public abstract class Account {
 	}
 	
 	/// Modifiers
-	protected void modifyName(String name) {
+	public void modifyName(String name) {
 		this.name = name;
 	}
 	
-	protected void modifySurname(String surname) {
+	public void modifySurname(String surname) {
 		this.surname = surname;
 	}
 	
-	protected void modifyPhoneNumber(String phoneNumber) {
+	public void modifyPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	protected void modifyAccountEmail(String accountEmail) {
+	public void modifyAccountEmail(String accountEmail) {
 		this.accountEmail = accountEmail;
 	}
 	
-	protected void modifyAccountPw(String accountPw) {
+	public void modifyAccountPw(String accountPw) {
 		this.accountPw = accountPw;
 	}
 	

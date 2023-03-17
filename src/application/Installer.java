@@ -20,7 +20,7 @@ class Installer {
 		
 		// Part1
 		AppData data = new AppData(rootPath);
-		System.out.println("\n* Pw_C0ll3ct0r installer *\n");
+		System.out.println("\n* Pw_C0ll3ct0r INSTALLER *\n");
 		fillRootDir(rootPath);
 		writeAppDataOnJSON(data);
 		
