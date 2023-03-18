@@ -20,7 +20,6 @@ public class PremiumUserAccount extends UserAccount{
 	}
 	
 	// Methods
-	
 	protected void setType() {
 		this.accountType = AccountTypes.PREMIUM_USER;
 	}

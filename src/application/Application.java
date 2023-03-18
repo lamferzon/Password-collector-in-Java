@@ -90,18 +90,20 @@ class Application {
 				cont = false;
 				break;
 			case 1:
-				homeAccountManager(); 
+				if(homeAccountManager()) {
+					handler.logout();
+					cont = false;
+				}
 				break;
 			case 2:
 				homePwManager();
 				break;
 			}
-			
 		}while(cont);
 		System.out.println("");
 	}
 
-	private void homeAccountManager() throws IOException {
+	private boolean homeAccountManager() throws IOException {
 		boolean cont = true;
 		int choice = 0;
 		
@@ -110,7 +112,7 @@ class Application {
 			System.out.println("1. Change your name.");
 			System.out.println("2. Change your surname.");
 			System.out.println("3. Change your phone number.");
-			System.out.println("4. Change your surname.");
+			System.out.println("4. Change your email address.");
 			System.out.println("5. Change your account password.");
 			System.out.println("6. See your account details.");
 			System.out.println("7. Delete your account (only Premium).");
@@ -136,29 +138,29 @@ class Application {
 				handler.changeAccountSurname();
 				break;
 			case 3:
-				// TODO
+				handler.changePhoneNumber();
 				break;
 			case 4:
-				// TODO
+				handler.changeEmailAddress();
 				break;
 			case 5:
-				// TODO
+				handler.changeAccountPw();
 				break;
 			case 6:
 				handler.printAccountDetails();
 				break;
 			case 7:
-				// TODO
+				if(handler.deleteAccount())
+					return true;
 				break;
 			}
-			
 		}while(cont);
 		System.out.println("");
+		return false;
 	}
 
 	private void homePwManager() {
 		// TODO Auto-generated method stub
-		
 	}
 	
 }
