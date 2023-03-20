@@ -12,7 +12,7 @@ class Application {
 	// Fields
 	private AppData data;
 	private List<Account> accountList;
-	private Handler handler;
+	private AccountHandler handler;
 	BufferedReader bR;
 	
 	// Builder
@@ -24,7 +24,7 @@ class Application {
 	// Methods
 	protected void startApplication() throws IOException{
 		this.data = Initializer.startInitilizer(this.accountList);
-		handler = new Handler(this.data, this.accountList);
+		handler = new AccountHandler(this.data, this.accountList);
 		homeApp();
 		Util.writeAccountsOnJSON(accountList, data);
 	}
@@ -115,7 +115,7 @@ class Application {
 			System.out.println("4. Change your email address.");
 			System.out.println("5. Change your account password.");
 			System.out.println("6. See your account details.");
-			System.out.println("7. Delete your account (only Premium).");
+			System.out.println("7. Delete your account.");
 			System.out.println("0. Come back.");
 			
 			do {

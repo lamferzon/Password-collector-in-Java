@@ -10,7 +10,7 @@ import accounts.AccountTypes;
 import accounts.PremiumUserAccount;
 import accounts.UserAccount;
 
-class Handler {
+class AccountHandler {
 	
 	// Fields
 	private AppData data;
@@ -20,7 +20,7 @@ class Handler {
 	//private CaesarEncryptor en;
 	
 	// Builder
-	protected Handler(AppData data, List<Account> accountList) {
+	protected AccountHandler(AppData data, List<Account> accountList) {
 		this.data = data;
 		this.accountList = accountList;
 		this.accountIndex = null;
@@ -237,21 +237,21 @@ class Handler {
 		accountList.get(this.accountIndex).modifyAccountPw(pw);;
 	}
 	
-	@SuppressWarnings("unlikely-arg-type")
+	// @SuppressWarnings("unlikely-arg-type")
 	protected boolean deleteAccount() throws IOException {
 		System.out.println("\nDelete your account: ");
 		
-		if(accountList.get(this.accountIndex).getAccountType().compareTo(AccountTypes.PREMIUM_USER) != 0)
-			System.out.println("Attention: you cannot delete your account because it is not Premium.");
+		if(accountList.get(this.accountIndex).getAccountType().compareTo(AccountTypes.ADMINISTRATOR) == 0)
+			System.out.println("Attention: you cannot delete your account because you are the administrator.");
 		else {
 			String choice = null;
 			do {
-				System.out.print("Are you sure to delete your Premium account? (Y/N) ");
+				System.out.print("Are you sure to delete your account? (Y/N) ");
 				choice = this.bR.readLine().toUpperCase();
 			}while(choice.compareTo("Y") != 0 && choice.compareTo("N") != 0);
 			if(choice.compareTo("Y") == 0) {
-				accountList.remove(this.accountIndex);
-				System.out.println("Premium account deleted.");
+				accountList.remove(this.accountIndex.intValue());
+				System.out.println("Account deleted.");
 				return true;
 			}else {
 				return false;
