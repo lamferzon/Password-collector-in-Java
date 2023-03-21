@@ -13,11 +13,13 @@ class Application {
 	private AppData data;
 	private List<Account> accountList;
 	private AccountHandler handler;
+	private Integer accountIndex;
 	BufferedReader bR;
 	
 	// Builder
 	protected Application(){
 		this.accountList = new ArrayList<>();
+		this.accountIndex = null;
 		bR = new BufferedReader(new InputStreamReader(System.in));
 	}
 	
@@ -53,7 +55,8 @@ class Application {
 				cont = false;
 				break;
 			case 1:
-				if(handler.login())
+				this.accountIndex = handler.login();
+				if(this.accountIndex != null)
 					yourHome();
 				break;
 			case 2:
@@ -73,6 +76,7 @@ class Application {
 			System.out.println("* Pw_C0ll3ct0r - YOUR HOME *\n");
 			System.out.println("1. Manage your account.");
 			System.out.println("2. Manage your passwords.");
+			System.out.println("3. Uninstall the application (only administator)");
 			System.out.println("0. Logout.");
 			
 			do {
@@ -82,11 +86,12 @@ class Application {
 				}catch(NumberFormatException e) {
 					e.setStackTrace(null);
 				}
-			}while(choice < 0 || choice > 2);
+			}while(choice < 0 || choice > 3);
 			
 			switch(choice) {
 			case 0:
 				handler.logout();
+				this.accountIndex = null;
 				cont = false;
 				break;
 			case 1:
@@ -98,6 +103,9 @@ class Application {
 			case 2:
 				homePwManager();
 				break;
+			case 3:
+				Installer.uninstallApp(this.data, 
+						accountList.get(this.accountIndex.intValue()));
 			}
 		}while(cont);
 		System.out.println("");

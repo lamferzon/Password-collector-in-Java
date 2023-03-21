@@ -67,13 +67,15 @@ class Initializer {
 		AppData data = new AppData();
 		
 		try {
-			Object obj = parser.parse(new FileReader(appDataFilePath));
+			FileReader fR = new FileReader(appDataFilePath);
+			Object obj = parser.parse(fR);
             JSONArray appDataFile = (JSONArray) obj;
             JSONObject item = (JSONObject) appDataFile.get(0);
             JSONObject instDet = (JSONObject) item.get("installationDetails");
             data.setRootPath((String) instDet.get("root_path"));
             data.setPwPath((String) instDet.get("passwords_path"));
             data.setInstallationDatetime((String) instDet.get("installation_datetime"));
+            fR.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

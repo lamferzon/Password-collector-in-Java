@@ -31,6 +31,30 @@ class Installer {
 		return data;
 	}
 	
+	protected static void uninstallApp(AppData data, Account acc) throws IOException {
+		System.out.println("\nUninstall the application: ");
+		BufferedReader bR = new BufferedReader(new InputStreamReader(System.in));
+		
+		if(acc.getAccountType().compareTo(AccountTypes.ADMINISTRATOR) != 0)
+			System.out.println("Attention: you cannot uninstall the application because you are not the administrator.\n");
+		else {
+			String choice = null;
+			do {
+				System.out.print("Are you sure to uninstall Pw_C0ll3ct0r? All data will be lost (Y/N) ");
+				choice = bR.readLine().toUpperCase();
+			}while(choice.compareTo("Y") != 0 && choice.compareTo("N") != 0);
+			
+			if(choice.compareTo("Y") == 0) {
+				Util.deleteDirectory(data.getPwPath());
+				Util.deleteDirectory(data.getRootPath());
+				System.out.println("\nPw_C0ll3ct0r uninstalled.");
+				System.exit(0);
+			}else {
+				System.out.println("");
+			}
+		}
+	}
+	
 	private static void fillRootDir(String rootPath) throws IOException {
 		File rootDir = new File(rootPath);
 		rootDir.mkdirs();

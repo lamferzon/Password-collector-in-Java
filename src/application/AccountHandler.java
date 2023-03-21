@@ -17,7 +17,6 @@ class AccountHandler {
 	private List<Account> accountList;
 	private Integer accountIndex;
 	private BufferedReader bR;
-	//private CaesarEncryptor en;
 	
 	// Builder
 	protected AccountHandler(AppData data, List<Account> accountList) {
@@ -25,7 +24,6 @@ class AccountHandler {
 		this.accountList = accountList;
 		this.accountIndex = null;
 		this.bR = new BufferedReader(new InputStreamReader(System.in));
-		//this.en = new ModCaesarEncryptor(15);
 	}
 	
 	// Methods
@@ -87,7 +85,7 @@ class AccountHandler {
 		pwFile.createNewFile();
 	}
 
-	protected boolean login() throws IOException {
+	protected Integer login() throws IOException {
 		System.out.println("\nLogin:");
 		String emailInserted;
 		String pwInserted;
@@ -125,7 +123,11 @@ class AccountHandler {
 			System.out.println("Attention: password or email address are wrong.");
 		}
 		System.out.println("");
-		return correct;
+		
+		if(correct)
+			return this.accountIndex;
+		else
+			return null;
 	}
 
 	protected void logout() {
@@ -251,6 +253,10 @@ class AccountHandler {
 			}while(choice.compareTo("Y") != 0 && choice.compareTo("N") != 0);
 			if(choice.compareTo("Y") == 0) {
 				accountList.remove(this.accountIndex.intValue());
+				File f = new File(this.data.getPwPath() + "/pw_" + 
+						accountList.get(this.accountIndex.intValue()).getID() + 
+						".json");
+				f.delete();
 				System.out.println("Account deleted.");
 				return true;
 			}else {

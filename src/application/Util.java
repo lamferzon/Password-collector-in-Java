@@ -1,5 +1,6 @@
 package application;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -50,12 +51,14 @@ public class Util {
 		JSONParser parser = new JSONParser();
 		
 		try {
-			Object obj = parser.parse(new FileReader(rootPath 
-					+ "/accounts_data.json"));
+			FileReader fR = new FileReader(rootPath 
+					+ "/accounts_data.json");
+			Object obj = parser.parse(fR);
             JSONArray usersDataFile = (JSONArray) obj;
             for(Object us: usersDataFile) {
             	Util.addAccountToList((JSONObject) us, list);
             }
+            fR.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -130,7 +133,7 @@ public class Util {
 		for(Account acc : accountList) {
 			if(acc.getAccountEmail().compareTo(email) == 0) {
 				flag = true;
-				System.out.println("\nAttention: email address already exists. "
+				System.out.println("Attention: email address already exists. "
 						+ "Please insert another one.");
 				break;
 			}
@@ -142,10 +145,23 @@ public class Util {
 		boolean flag = false;
 		if(pw.length() < 8) {
 			flag = true;
-			System.out.println("\nAttention: pw has to have almost 8 characters. "
+			System.out.println("Attention: pw has to have almost 8 characters. "
 					+ "Please insert another one.");
 		}
 		return flag;
+	}
+	
+	public static void deleteDirectory(String rootPath) {
+		try {
+		      File directory = new File(rootPath);
+		      File[] files = directory.listFiles();
+		      for(File file : files) {
+		    	  file.delete();
+		      }
+		      directory.delete();
+		}catch(Exception e) {
+			e.getStackTrace();
+		}
 	}
 	
 }
