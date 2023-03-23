@@ -34,7 +34,7 @@ public class UserAccount extends Account{
 	}
 	
 	public static final void setProgNum(int num) {
-		progNum = num + 1;
+		progNum = num;
 	}
 	
 }

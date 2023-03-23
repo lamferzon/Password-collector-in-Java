@@ -58,7 +58,7 @@ class Initializer {
 			Util.readAccountsFromJSON(rootPath, accountList);
 			System.out.println("");
 		}
-		setCounters(accountList);
+		setCounter(accountList);
 		return data;
 	}
 	
@@ -99,15 +99,10 @@ class Initializer {
 		return invalid;
 	}
 	
-	private static void setCounters(List<Account> accountList) {
-		int counter = 0;
-		
-		for(Account acc : accountList)
-			if(acc.getAccountType() == AccountTypes.USER || 
-					acc.getAccountType() == AccountTypes.PREMIUM_USER)
-				counter++;
-		
-		UserAccount.setProgNum(counter);
+	private static void setCounter(List<Account> accountList) {
+		Account lastAccount = accountList.get(accountList.size()-1);
+		Integer counter = Integer.parseInt(lastAccount.getID().substring(3));
+		UserAccount.setProgNum(counter.intValue() + 1);
 	}
 	
 }

@@ -1,6 +1,6 @@
 package accounts;
 
-public abstract class Account {
+public abstract class Account implements Comparable<Account>{
 	
 	// Fields
 	protected String ID;
@@ -69,6 +69,11 @@ public abstract class Account {
 	
 	public void modifyAccountPw(String accountPw) {
 		this.accountPw = accountPw;
+	}
+	
+	public int compareTo(Account a) {
+		return a.ID.compareTo(a.getID());
+		
 	}
 	
 	public String toString() {

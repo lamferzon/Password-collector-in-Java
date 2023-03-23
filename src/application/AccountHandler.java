@@ -252,11 +252,11 @@ class AccountHandler {
 				choice = this.bR.readLine().toUpperCase();
 			}while(choice.compareTo("Y") != 0 && choice.compareTo("N") != 0);
 			if(choice.compareTo("Y") == 0) {
-				accountList.remove(this.accountIndex.intValue());
 				File f = new File(this.data.getPwPath() + "/pw_" + 
 						accountList.get(this.accountIndex.intValue()).getID() + 
 						".json");
 				f.delete();
+				accountList.remove(this.accountIndex.intValue());
 				System.out.println("Account deleted.");
 				return true;
 			}else {
