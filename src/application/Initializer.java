@@ -14,13 +14,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import accounts.Account;
-import accounts.AccountTypes;
 import accounts.UserAccount;
+import accounts.*;
 
 class Initializer {
 	
 	// Methods
-	protected static AppData startInitilizer(List<Account> accountList) throws IOException {
+	protected static AppData startInitilizer(List<Account> accountList,
+			KeysCollection collector) throws IOException {
 		BufferedReader bR = new BufferedReader(new InputStreamReader(System.in));
 		AppData data = null;
 		
@@ -56,6 +57,7 @@ class Initializer {
 			
 			data = readAppDataFromJSON(rootPath + "/app_data.json");
 			Util.readAccountsFromJSON(rootPath, accountList);
+			Util.readKeysFromJSON(rootPath, collector.getKeysCollection());
 			System.out.println("");
 		}
 		setCounter(accountList);

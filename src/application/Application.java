@@ -26,11 +26,13 @@ class Application {
 	
 	// Methods
 	protected void startApplication() throws IOException{
-		this.data = Initializer.startInitilizer(this.accountList);
-		handler = new AccountHandler(this.data, this.accountList);
+		this.data = Initializer.startInitilizer(this.accountList, 
+				AdminAccount.keysList);
+		handler = new AccountHandler(this.data, this.accountList, AdminAccount.keysList);
 		homeApp();
 		Collections.sort(accountList);
 		Util.writeAccountsOnJSON(accountList, data);
+		Util.writeKeysOnJSON(AdminAccount.keysList.getKeysCollection(), data);
 	}
 	
 	private void homeApp() throws IOException {
@@ -58,8 +60,13 @@ class Application {
 				break;
 			case 1:
 				this.accountIndex = handler.login();
-				if(this.accountIndex != null)
-					yourHome();
+				if(this.accountIndex != null) {
+					if(accountList.get(this.accountIndex.intValue())
+							.getAccountType().compareTo(AccountTypes.ADMINISTRATOR) == 0)
+						yourAdminHome();
+					else
+						yourUserHome();
+				}
 				break;
 			case 2:
 				handler.createAccount();
@@ -70,7 +77,7 @@ class Application {
 		System.out.println("\nBye bye!");
 	}
 	
-	private void yourHome() throws NumberFormatException, IOException {
+	private void yourUserHome() throws NumberFormatException, IOException {
 		boolean cont = true;
 		int choice = 0;
 		
@@ -78,7 +85,6 @@ class Application {
 			System.out.println("* Pw_C0ll3ct0r - YOUR HOME *\n");
 			System.out.println("1. Manage your account.");
 			System.out.println("2. Manage your passwords.");
-			System.out.println("3. Uninstall the application (only administator)");
 			System.out.println("0. Logout.");
 			
 			do {
@@ -88,7 +94,7 @@ class Application {
 				}catch(NumberFormatException e) {
 					e.setStackTrace(null);
 				}
-			}while(choice < 0 || choice > 3);
+			}while(choice < 0 || choice > 2);
 			
 			switch(choice) {
 			case 0:
@@ -105,7 +111,59 @@ class Application {
 			case 2:
 				homePwManager();
 				break;
+			}
+		}while(cont);
+		System.out.println("");
+	}
+	
+	private void yourAdminHome() throws NumberFormatException, IOException {
+		boolean cont = true;
+		int choice = 0;
+		
+		do {
+			System.out.println("* Pw_C0ll3ct0r - YOUR HOME *\n");
+			System.out.println("1. Manage your account.");
+			System.out.println("2. Add a Premium key.");
+			System.out.println("3. Remove a Premium key.");
+			System.out.println("4. See the Premium keys list.");
+			System.out.println("5. See the account list.");
+			System.out.println("6. Uninstall the application");
+			System.out.println("0. Logout.");
+			
+			do {
+				System.out.print("Your choice: ");
+				try {
+					choice = Integer.parseInt(bR.readLine());
+				}catch(NumberFormatException e) {
+					e.setStackTrace(null);
+				}
+			}while(choice < 0 || choice > 6);
+			
+			switch(choice) {
+			case 0:
+				handler.logout();
+				this.accountIndex = null;
+				cont = false;
+				break;
+			case 1:
+				if(homeAccountManager()) {
+					handler.logout();
+					cont = false;
+				}
+				break;
+			case 2:
+				handler.addPremiumKey();
+				break;
 			case 3:
+				handler.removePremiumKey();
+				break;
+			case 4:
+				handler.printPremiumKeys();
+				break;
+			case 5:
+				handler.printAccountList();
+				break;
+			case 6:
 				Installer.uninstallApp(this.data, 
 						accountList.get(this.accountIndex.intValue()));
 			}

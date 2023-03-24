@@ -34,24 +34,20 @@ class Installer {
 	protected static void uninstallApp(AppData data, Account acc) throws IOException {
 		System.out.println("\nUninstall the application: ");
 		BufferedReader bR = new BufferedReader(new InputStreamReader(System.in));
+		String choice = null;
 		
-		if(acc.getAccountType().compareTo(AccountTypes.ADMINISTRATOR) != 0)
-			System.out.println("Attention: you cannot uninstall the application because you are not the administrator.\n");
-		else {
-			String choice = null;
-			do {
-				System.out.print("Are you sure to uninstall Pw_C0ll3ct0r? All data will be lost (Y/N) ");
-				choice = bR.readLine().toUpperCase();
-			}while(choice.compareTo("Y") != 0 && choice.compareTo("N") != 0);
-			
-			if(choice.compareTo("Y") == 0) {
-				Util.deleteDirectory(data.getPwPath());
-				Util.deleteDirectory(data.getRootPath());
-				System.out.println("\nPw_C0ll3ct0r uninstalled.");
-				System.exit(0);
-			}else {
-				System.out.println("");
-			}
+		do {
+			System.out.print("Are you sure to uninstall Pw_C0ll3ct0r? All data will be lost (Y/N) ");
+			choice = bR.readLine().toUpperCase();
+		}while(choice.compareTo("Y") != 0 && choice.compareTo("N") != 0);
+		
+		if(choice.compareTo("Y") == 0) {
+			Util.deleteDirectory(data.getPwPath());
+			Util.deleteDirectory(data.getRootPath());
+			System.out.println("\nPw_C0ll3ct0r uninstalled.");
+			System.exit(0);
+		}else {
+			System.out.println("");
 		}
 	}
 	
@@ -70,9 +66,13 @@ class Installer {
 		appDataFile.createNewFile();
 		System.out.println("3. Application-data file created.");
 		
+		File premiumKeysFile = new File(rootPath + "/premium_keys.json");
+		premiumKeysFile.createNewFile();
+		System.out.println("4. Premium keys file created.");
+		
 		File collDir = new File(rootPath + "/Collections");
 		collDir.mkdirs();
-		System.out.println("4. Collections directory created.");
+		System.out.println("5. Collections directory created.");
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -91,7 +91,7 @@ class Installer {
 		array.add(obj2);
 		
 		Util.writeOnJSON(data.getRootPath() + "/app_data.json", array);
-		System.out.println("5. Application-data file filled.");
+		System.out.println("6. Application-data file filled.");
 	}
 	
 	private static Account createAdmin() throws IOException {

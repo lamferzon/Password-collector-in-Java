@@ -12,6 +12,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import accounts.Account;
 import accounts.AdminAccount;
+import accounts.PremiumKey;
 import accounts.PremiumUserAccount;
 import accounts.UserAccount;
 import encryptors.CaesarEncryptor;
@@ -72,6 +73,7 @@ public class Util {
 			List<Account> list) {
 		JSONObject obj = (JSONObject) us.get("account");
 		CaesarEncryptor ce = new ModCaesarEncryptor();
+		
 		String[] decrypted = ce.decrypts((String) obj.get("phone_number"), 
 				(String) obj.get("account_email"), 
 				(String) obj.get("account_pw"));
@@ -83,6 +85,7 @@ public class Util {
 		String accountEmail = decrypted[1];
 		String accountPw = decrypted[2];
 		Account account = null;
+		
 		switch(accountType) {
 		case "ADMINISTRATOR":
 			account = new AdminAccount(name, surname, phoneNumber, 
@@ -104,8 +107,62 @@ public class Util {
 		// TODO
 	}
 	
-	public static void readPasswordsOnJSON() {
+	public static void readPasswordsFromJSON() {
 		// TODO
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void writeKeysOnJSON(List<PremiumKey> list, AppData data) {
+		CaesarEncryptor ce = new ModCaesarEncryptor();
+		JSONArray JSONList = new JSONArray();
+		
+		for(PremiumKey item : list) {
+			String[] crypted = ce.encrypts(item.getKey(), 
+					item.getLinkedEmailAddress());
+			
+			JSONObject obj1 = new JSONObject();
+			obj1.put("key_value", crypted[0]);
+			obj1.put("linked_email_address", crypted[1]);
+			obj1.put("activation_status", 
+					Boolean.toString(item.getActivationStatus()));
+	        
+	        JSONObject obj2 = new JSONObject(); 
+	        obj2.put("premiumKey", obj1);
+	        JSONList.add(obj2);
+		}
+		Util.writeOnJSON(data.getRootPath() + "/premium_keys.json", JSONList);
+	}
+	
+	public static void readKeysFromJSON(String rootPath, List<PremiumKey> list) {
+		JSONParser parser = new JSONParser();
+		
+		try {
+			FileReader fR = new FileReader(rootPath 
+					+ "/premium_keys.json");
+			Object obj = parser.parse(fR);
+            JSONArray premiumKeysFile = (JSONArray) obj;
+            for(Object us: premiumKeysFile) {
+            	Util.addKeyToList((JSONObject) us, list);
+            }
+            fR.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch(ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addKeyToList(JSONObject us, List<PremiumKey> list) {
+		JSONObject obj = (JSONObject) us.get("premiumKey");
+		CaesarEncryptor ce = new ModCaesarEncryptor();
+		
+		String[] decrypted = ce.decrypts((String) obj.get("key_value"), 
+				(String) obj.get("linked_email_address"));
+		String status = (String)obj.get("activation_status");
+		
+		list.add(new PremiumKey(decrypted[0], decrypted[1], status));
 	}
 	
 	public static void writeOnJSON(String filePath, JSONArray array) {

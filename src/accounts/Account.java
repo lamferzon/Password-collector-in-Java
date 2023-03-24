@@ -1,5 +1,8 @@
 package accounts;
 
+import encryptors.CaesarEncryptor;
+import encryptors.ModCaesarEncryptor;
+
 public abstract class Account implements Comparable<Account>{
 	
 	// Fields
@@ -10,6 +13,7 @@ public abstract class Account implements Comparable<Account>{
 	protected String phoneNumber;
 	protected String accountEmail;
 	protected String accountPw;
+	protected static CaesarEncryptor cE = new ModCaesarEncryptor(15);
 	
 	// Builder
 	public Account(String name, String surname, String phoneNumber,
@@ -77,11 +81,12 @@ public abstract class Account implements Comparable<Account>{
 	}
 	
 	public String toString() {
+		String pwEncrypted = cE.encrypts(this.accountPw)[0];
 		return "Account ID: " + this.ID + "\n" + "User type: " + 
 				this.accountType + "\n" + "Name: " + this.name + "\n" + 
 				"Surname: " + this.surname + "\n" + "Phone number: " + 
 				this.phoneNumber + "\n" + "Account email: " + 
-				this.accountEmail + "\n" + "Account password: " + this.accountPw;
+				this.accountEmail + "\n" + "Account password: " + pwEncrypted;
 	}
 	
 }

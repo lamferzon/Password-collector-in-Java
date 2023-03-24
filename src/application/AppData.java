@@ -23,7 +23,7 @@ class AppData {
 		this.datetime = LocalDateTime.now();
 	}
 	
-	// Methods
+	// Setters
 	protected void setRootPath(String rootPath) {
 		this.rootPath = rootPath;
 	}
@@ -36,6 +36,7 @@ class AppData {
 		this.datetime = LocalDateTime.parse(datetime, formatter);
 	}
 	
+	// Getters
 	protected String getRootPath() {
 		return this.rootPath;
 	}
