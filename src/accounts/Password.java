@@ -1,6 +1,9 @@
 package accounts;
 
-class Password {
+import encryptors.CaesarEncryptor;
+import encryptors.ModCaesarEncryptor;
+
+public class Password implements Comparable<Password>{
 	
 	// Fields
 	private String ID;
@@ -8,6 +11,7 @@ class Password {
 	private String username;
 	private String pw;
 	private String information;
+	private static CaesarEncryptor cE = new ModCaesarEncryptor(15);
 	
 	// Builders
 	public Password(String ID, String name, String username, String pw) {
@@ -63,6 +67,18 @@ class Password {
 	
 	public void modifyInformation(String newInformation) {
 		information = newInformation;
+	}
+
+	@Override
+	public int compareTo(Password o) {
+		return ID.compareTo(o.getID());
+	}
+	
+	public String toString() {
+		return "ID: " + this.ID + "\n" + 
+				"Name" + this.name + "\n" + 
+				"Username" + this.username + "\n" +
+				"Password" + cE.encrypts(this.pw)[0];
 	}
 	
 }

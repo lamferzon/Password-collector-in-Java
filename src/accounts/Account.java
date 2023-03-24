@@ -1,5 +1,7 @@
 package accounts;
 
+import java.util.List;
+
 import encryptors.CaesarEncryptor;
 import encryptors.ModCaesarEncryptor;
 
@@ -75,6 +77,40 @@ public abstract class Account implements Comparable<Account>{
 		this.accountPw = accountPw;
 	}
 	
+	// Checkers
+	public static boolean checkPhoneNumber(String phoneNumber) {
+		boolean flag = false;
+		if(!phoneNumber.matches("[0-9]+")) {
+			flag = true;
+			System.out.println("Attention: phone number contains invalid characters. "
+					+ "Please insert another one.");
+		}
+		return flag;
+	}
+	
+	public static boolean checkEmail(String email, List<Account> accountList) {
+		boolean flag = false;
+		for(Account acc : accountList) {
+			if(acc.getAccountEmail().compareTo(email) == 0) {
+				flag = true;
+				System.out.println("Attention: email address already exists. "
+						+ "Please insert another one.");
+				break;
+			}
+		}
+		return flag;
+	}
+	
+	public static boolean checkPw(String pw) {
+		boolean flag = false;
+		if(pw.length() < 8) {
+			flag = true;
+			System.out.println("Attention: pw has to have almost 8 characters. "
+					+ "Please insert another one.");
+		}
+		return flag;
+	}
+	
 	public int compareTo(Account a) {
 		return a.ID.compareTo(a.getID());
 		
@@ -88,5 +124,6 @@ public abstract class Account implements Comparable<Account>{
 				this.phoneNumber + "\n" + "Account email: " + 
 				this.accountEmail + "\n" + "Account password: " + pwEncrypted;
 	}
+	
 	
 }

@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import accounts.*;
 
@@ -30,8 +29,13 @@ class Application {
 				AdminAccount.keysList);
 		handler = new AccountHandler(this.data, this.accountList, AdminAccount.keysList);
 		homeApp();
-		Collections.sort(accountList);
 		Util.writeAccountsOnJSON(accountList, data);
+		for(Account acc : accountList) {
+			if(acc.getAccountType().compareTo(AccountTypes.ADMINISTRATOR) != 0) {
+				UserAccount uA = (UserAccount) acc;
+				Util.writePwOnJSON(uA.getPwList(), data, acc.getID());
+			}
+		}
 		Util.writeKeysOnJSON(AdminAccount.keysList.getKeysCollection(), data);
 	}
 	
@@ -109,13 +113,17 @@ class Application {
 				}
 				break;
 			case 2:
-				homePwManager();
+				if(accountList.get(this.accountIndex.intValue()).getAccountType()
+						.compareTo(AccountTypes.USER) == 0)
+					homePwManager();
+				else
+					homePremiumPwManager();
 				break;
 			}
 		}while(cont);
 		System.out.println("");
 	}
-	
+
 	private void yourAdminHome() throws NumberFormatException, IOException {
 		boolean cont = true;
 		int choice = 0;
@@ -227,8 +235,43 @@ class Application {
 		return false;
 	}
 
-	private void homePwManager() {
+	private void homePwManager() throws IOException {
+		boolean cont = true;
+		int choice = 0;
+		
+		do {
+			System.out.println("* Pw_C0ll3ct0r - PASSWORDS MANAGER *\n");
+			System.out.println("1. Add a new password.");
+			System.out.println("2. See your passwords.");
+			System.out.println("0. Come back.");
+			
+			do {
+				System.out.print("Your choice: ");
+				try {
+					choice = Integer.parseInt(bR.readLine());
+				}catch(NumberFormatException e) {
+					e.setStackTrace(null);
+				}
+			}while(choice < 0 || choice > 2);
+			
+			switch(choice) {
+			case 0:
+				cont = false;
+				break;
+			case 1:
+				// TODO
+				break;
+			case 2:
+				// TODO
+				break;
+			}
+		}while(cont);
+		System.out.println("");
+	}
+	
+	private void homePremiumPwManager() {
 		// TODO Auto-generated method stub
+		
 	}
 	
 }

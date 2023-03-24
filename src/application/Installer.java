@@ -116,7 +116,7 @@ class Installer {
 			System.out.print("Phone number: ");
 			phoneNumber = bR.readLine();
 		}while(phoneNumber.compareTo("") == 0 || 
-				Util.checkPhoneNumber(phoneNumber));
+				Account.checkPhoneNumber(phoneNumber));
 		do {
 			System.out.print("Account email: ");
 			accountEmail = bR.readLine();
@@ -124,7 +124,7 @@ class Installer {
 		do {
 			System.out.print("Account password: ");
 			accountPw = bR.readLine();
-		}while(accountPw.compareTo("") == 0 || Util.checkPw(accountPw));
+		}while(accountPw.compareTo("") == 0 || Account.checkPw(accountPw));
 		
 		return new AdminAccount(name, surname, phoneNumber, 
 				accountEmail, accountPw);	

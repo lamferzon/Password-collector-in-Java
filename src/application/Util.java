@@ -12,6 +12,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import accounts.Account;
 import accounts.AdminAccount;
+import accounts.Password;
 import accounts.PremiumKey;
 import accounts.PremiumUserAccount;
 import accounts.UserAccount;
@@ -102,14 +103,6 @@ public class Util {
 		}
 		list.add(account);
 	}
-
-	public static void writePasswordsOnJSON() {
-		// TODO
-	}
-	
-	public static void readPasswordsFromJSON() {
-		// TODO
-	}
 	
 	@SuppressWarnings("unchecked")
 	public static void writeKeysOnJSON(List<PremiumKey> list, AppData data) {
@@ -165,6 +158,62 @@ public class Util {
 		list.add(new PremiumKey(decrypted[0], decrypted[1], status));
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static void writePwOnJSON(List<Password> list, AppData data, String userID) {
+		CaesarEncryptor ce = new ModCaesarEncryptor();
+		JSONArray JSONList = new JSONArray();
+		
+		for(Password item : list) {
+			String[] crypted = ce.encrypts(item.getUsername(), 
+					item.getPw());
+			
+			JSONObject obj1 = new JSONObject();
+			obj1.put("ID", item.getID());
+			obj1.put("name", item.getName());
+			obj1.put("username", crypted[0]);
+			obj1.put("pw", crypted[1]);
+	        
+	        JSONObject obj2 = new JSONObject(); 
+	        obj2.put("password", obj1);
+	        JSONList.add(obj2);
+		}
+		Util.writeOnJSON(data.getPwPath() + "/pw_" + userID + ".json", JSONList);
+	}
+	
+	public static void readPwFromJSON(String pwPath, String userID, 
+			List<Password> list) {
+		JSONParser parser = new JSONParser();
+	
+		try {
+			FileReader fR = new FileReader(pwPath + "/pw_" + userID + ".json");
+			Object obj = parser.parse(fR);
+            JSONArray pwFile = (JSONArray) obj;
+            for(Object us: pwFile) {
+            	Util.addPwToList((JSONObject) us, list);
+            }
+            fR.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch(ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void addPwToList(JSONObject us, List<Password> list) {
+		JSONObject obj = (JSONObject) us.get("password");
+		CaesarEncryptor ce = new ModCaesarEncryptor();
+		
+		String[] decrypted = ce.decrypts((String) obj.get("pw"));
+		String ID = (String)obj.get("ID");
+		String name = (String)obj.get("name");
+		String username = (String)obj.get("username");
+		String information = (String)obj.get("information");
+		
+		list.add(new Password(ID, name, username, decrypted[0], information));
+	}
+	
 	public static void writeOnJSON(String filePath, JSONArray array) {
 		try(FileWriter appDataFile = new FileWriter(filePath)){
             appDataFile.write(array.toJSONString()); 
@@ -173,39 +222,6 @@ public class Util {
         } catch (IOException e) {
             e.printStackTrace();
         }
-	}
-	
-	public static boolean checkPhoneNumber(String phoneNumber) {
-		boolean flag = false;
-		if(!phoneNumber.matches("[0-9]+")) {
-			flag = true;
-			System.out.println("Attention: phone number contains invalid characters. "
-					+ "Please insert another one.");
-		}
-		return flag;
-	}
-	
-	public static boolean checkEmail(String email, List<Account> accountList) {
-		boolean flag = false;
-		for(Account acc : accountList) {
-			if(acc.getAccountEmail().compareTo(email) == 0) {
-				flag = true;
-				System.out.println("Attention: email address already exists. "
-						+ "Please insert another one.");
-				break;
-			}
-		}
-		return flag;
-	}
-	
-	public static boolean checkPw(String pw) {
-		boolean flag = false;
-		if(pw.length() < 8) {
-			flag = true;
-			System.out.println("Attention: pw has to have almost 8 characters. "
-					+ "Please insert another one.");
-		}
-		return flag;
 	}
 	
 	public static void deleteDirectory(String rootPath) {

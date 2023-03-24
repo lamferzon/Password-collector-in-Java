@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Collections;
 import java.util.List;
 import accounts.Account;
 import accounts.AccountTypes;
@@ -53,17 +54,16 @@ class AccountHandler {
 		do {
 			System.out.print("Phone number: ");
 			phoneNumber = this.bR.readLine();
-		}while(phoneNumber.compareTo("") == 0 || 
-				Util.checkPhoneNumber(phoneNumber));
+		}while(phoneNumber.compareTo("") == 0 || Account.checkPhoneNumber(phoneNumber));
 		do {
 			System.out.print("Account email: ");
 			accountEmail = this.bR.readLine();
-		}while(accountEmail.compareTo("") == 0 || Util.checkEmail(accountEmail,
+		}while(accountEmail.compareTo("") == 0 || Account.checkEmail(accountEmail,
 				this.accountList));
 		do {
 			System.out.print("Account password: ");
 			accountPw = this.bR.readLine();
-		}while(accountPw.compareTo("") == 0 || Util.checkPw(accountPw));
+		}while(accountPw.compareTo("") == 0 || Account.checkPw(accountPw));
 		do {
 			System.out.print("Premium account? (Y/N) ");
 			resp = bR.readLine().toUpperCase();
@@ -94,6 +94,7 @@ class AccountHandler {
 		}
 		
 		this.accountList.add(acc);
+		Collections.sort(accountList);
 		
 		File pwFile = new File(this.data.getPwPath() + "/pw_" + acc.getID() + 
 				".json");
@@ -209,7 +210,7 @@ class AccountHandler {
 			phoneNumber = this.bR.readLine();
 			if(phoneNumber.compareTo("B") == 0)
 				return;
-		}while(phoneNumber.compareTo("") == 0 || Util.checkPhoneNumber(phoneNumber));
+		}while(phoneNumber.compareTo("") == 0 || Account.checkPhoneNumber(phoneNumber));
 		
 		accountList.get(this.accountIndex).modifyPhoneNumber(phoneNumber);
 		System.out.println("\nWell done! Phone number changed.");
@@ -231,7 +232,7 @@ class AccountHandler {
 			email = this.bR.readLine();
 			if(email.compareTo("0") == 0)
 				return;
-		}while(email.compareTo("") == 0 || Util.checkEmail(email, accountList));
+		}while(email.compareTo("") == 0 || Account.checkEmail(email, accountList));
 		
 		accountList.get(this.accountIndex).modifyAccountEmail(email);
 		System.out.println("\nWell done! Email address changed.");
@@ -253,7 +254,7 @@ class AccountHandler {
 			pw = this.bR.readLine();
 			if(pw.compareTo("0") == 0)
 				return;
-		}while(pw.compareTo("") == 0 || Util.checkPw(pw));
+		}while(pw.compareTo("") == 0 || Account.checkPw(pw));
 		
 		accountList.get(this.accountIndex).modifyAccountPw(pw);
 		System.out.println("\nWell done! Password changed.");

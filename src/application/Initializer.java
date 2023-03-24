@@ -57,6 +57,7 @@ class Initializer {
 			
 			data = readAppDataFromJSON(rootPath + "/app_data.json");
 			Util.readAccountsFromJSON(rootPath, accountList);
+			UserAccount.setPwPath(data.getPwPath());
 			Util.readKeysFromJSON(rootPath, collector.getKeysCollection());
 			System.out.println("");
 		}
