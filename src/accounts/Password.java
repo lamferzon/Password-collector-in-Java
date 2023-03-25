@@ -76,9 +76,18 @@ public class Password implements Comparable<Password>{
 	
 	public String toString() {
 		return "ID: " + this.ID + "\n" + 
-				"Name" + this.name + "\n" + 
-				"Username" + this.username + "\n" +
-				"Password" + cE.encrypts(this.pw)[0];
+				"Name: " + this.name + "\n" + 
+				"Username: " + this.username + "\n" +
+				"Password: " + cE.encrypts(this.pw)[0] + "\n" + 
+				"Information: " + this.information;
+	}
+	
+	public String toStringDecrypted() {
+		return "ID: " + this.ID + "\n" + 
+				"Name: " + this.name + "\n" + 
+				"Username: " + this.username + "\n" +
+				"Password: " + this.pw + "\n" + 
+				"Information: " + this.information;
 	}
 	
 }

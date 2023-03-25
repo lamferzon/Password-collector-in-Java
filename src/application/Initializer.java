@@ -51,13 +51,12 @@ class Initializer {
 			}
 		}else {
 			String rootPath = startPath;
-			
 			if(findRootDir.exists())
 				rootPath += "/Pw_C0ll3ct0r";
 			
 			data = readAppDataFromJSON(rootPath + "/app_data.json");
-			Util.readAccountsFromJSON(rootPath, accountList);
 			UserAccount.setPwPath(data.getPwPath());
+			Util.readAccountsFromJSON(rootPath, accountList);
 			Util.readKeysFromJSON(rootPath, collector.getKeysCollection());
 			System.out.println("");
 		}

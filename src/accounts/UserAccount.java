@@ -19,6 +19,7 @@ public class UserAccount extends Account{
 	public UserAccount(String name, String surname, String phoneNumber, 
 			String accountEmail, String accountPw, String ID) {
 		super(name, surname, phoneNumber, accountEmail, accountPw);
+		pwList = new ArrayList<>();
 		this.ID = ID;
 		setType();
 		Util.readPwFromJSON(pwPath, this.ID, pwList);
@@ -41,22 +42,43 @@ public class UserAccount extends Account{
 		progAcc = num;
 	}
 	
-	public boolean insertPw(String name, String username, String pw) {
+	public String insertPw(String name, String username, String pw) {
 		Password pass = new Password("PW_" + progPw, name, username, pw);
 		progPw++;
 		Collections.sort(pwList);
-		return pwList.add(pass);
+		pwList.add(pass);
+		return pass.getID();
 	}
 	
-	public boolean insertPw(String name, String username, String pw, 
+	public String insertPw(String name, String username, String pw, 
 			String information) {
 		Password pass = new Password("PW_" + progPw, name, username, pw, information);
 		progPw++;
-		return pwList.add(pass);
+		pwList.add(pass);
+		return pass.getID();
+	}
+	
+	public Password searchPw(String ID) {
+		for(Password item : pwList) {
+			if(item.getID().compareTo(ID) == 0)
+				return item;
+		}
+		return null;
 	}
 	
 	public List<Password> getPwList(){
 		return this.pwList;
+	}
+	
+	public String pwListTostring() {
+		String result = "";
+		for(int i = 0; i < pwList.size(); i++) {
+			if(i == pwList.size() - 1)
+				result += pwList.get(i).toString() + "\n";
+			else
+				result += pwList.get(i).toString() + "\n\n";
+		}
+		return result;
 	}
 	
 	public static void setPwPath(String path) {
@@ -68,8 +90,14 @@ public class UserAccount extends Account{
 	}
 	
 	protected void setProgPw() {
-		Password lastPw = pwList.get(pwList.size()-1);
-		this.progPw = Integer.parseInt(lastPw.getID().substring(3)) + 1;
+		Password lastPw;
+		if(pwList.size()-1 >= 0) {
+			lastPw = pwList.get(pwList.size()-1);
+			this.progPw  = Integer.parseInt(lastPw.getID().substring(3)) + 1;
+		}
+		else {
+			this.progPw = 0;
+		}
 	}
 	
 }

@@ -172,6 +172,7 @@ public class Util {
 			obj1.put("name", item.getName());
 			obj1.put("username", crypted[0]);
 			obj1.put("pw", crypted[1]);
+			obj1.put("information", item.getInformation());
 	        
 	        JSONObject obj2 = new JSONObject(); 
 	        obj2.put("password", obj1);
@@ -205,13 +206,12 @@ public class Util {
 		JSONObject obj = (JSONObject) us.get("password");
 		CaesarEncryptor ce = new ModCaesarEncryptor();
 		
-		String[] decrypted = ce.decrypts((String) obj.get("pw"));
+		String[] decrypted = ce.decrypts((String) obj.get("username"), (String) obj.get("pw"));
 		String ID = (String)obj.get("ID");
 		String name = (String)obj.get("name");
-		String username = (String)obj.get("username");
 		String information = (String)obj.get("information");
 		
-		list.add(new Password(ID, name, username, decrypted[0], information));
+		list.add(new Password(ID, name, decrypted[0], decrypted[1], information));
 	}
 	
 	public static void writeOnJSON(String filePath, JSONArray array) {

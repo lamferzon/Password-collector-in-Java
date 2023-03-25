@@ -12,14 +12,14 @@ class Application {
 	// Fields
 	private AppData data;
 	private List<Account> accountList;
-	private AccountHandler handler;
-	private Integer accountIndex;
-	BufferedReader bR;
+	private AccountHandler accountHandler;
+	private PasswordHandler pwHandler;
+	private BufferedReader bR;
+	protected static Integer accountIdx = null;
 	
 	// Builder
 	protected Application(){
 		this.accountList = new ArrayList<>();
-		this.accountIndex = null;
 		bR = new BufferedReader(new InputStreamReader(System.in));
 	}
 	
@@ -27,7 +27,8 @@ class Application {
 	protected void startApplication() throws IOException{
 		this.data = Initializer.startInitilizer(this.accountList, 
 				AdminAccount.keysList);
-		handler = new AccountHandler(this.data, this.accountList, AdminAccount.keysList);
+		accountHandler = new AccountHandler(this.data, this.accountList, AdminAccount.keysList);
+		pwHandler = new PasswordHandler(accountList);
 		homeApp();
 		Util.writeAccountsOnJSON(accountList, data);
 		for(Account acc : accountList) {
@@ -63,9 +64,9 @@ class Application {
 				cont = false;
 				break;
 			case 1:
-				this.accountIndex = handler.login();
-				if(this.accountIndex != null) {
-					if(accountList.get(this.accountIndex.intValue())
+				accountHandler.login();
+				if(accountIdx != null) {
+					if(accountList.get(accountIdx.intValue())
 							.getAccountType().compareTo(AccountTypes.ADMINISTRATOR) == 0)
 						yourAdminHome();
 					else
@@ -73,7 +74,7 @@ class Application {
 				}
 				break;
 			case 2:
-				handler.createAccount();
+				accountHandler.createAccount();
 				break;
 			}
 			
@@ -102,18 +103,18 @@ class Application {
 			
 			switch(choice) {
 			case 0:
-				handler.logout();
-				this.accountIndex = null;
+				accountHandler.logout();
+				accountIdx = null;
 				cont = false;
 				break;
 			case 1:
 				if(homeAccountManager()) {
-					handler.logout();
+					accountHandler.logout();
 					cont = false;
 				}
 				break;
 			case 2:
-				if(accountList.get(this.accountIndex.intValue()).getAccountType()
+				if(accountList.get(accountIdx.intValue()).getAccountType()
 						.compareTo(AccountTypes.USER) == 0)
 					homePwManager();
 				else
@@ -149,31 +150,31 @@ class Application {
 			
 			switch(choice) {
 			case 0:
-				handler.logout();
-				this.accountIndex = null;
+				accountHandler.logout();
+				accountIdx = null;
 				cont = false;
 				break;
 			case 1:
 				if(homeAccountManager()) {
-					handler.logout();
+					accountHandler.logout();
 					cont = false;
 				}
 				break;
 			case 2:
-				handler.addPremiumKey();
+				accountHandler.addPremiumKey();
 				break;
 			case 3:
-				handler.removePremiumKey();
+				accountHandler.removePremiumKey();
 				break;
 			case 4:
-				handler.printPremiumKeys();
+				accountHandler.printPremiumKeys();
 				break;
 			case 5:
-				handler.printAccountList();
+				accountHandler.printAccountList();
 				break;
 			case 6:
 				Installer.uninstallApp(this.data, 
-						accountList.get(this.accountIndex.intValue()));
+						accountList.get(accountIdx.intValue()));
 			}
 		}while(cont);
 		System.out.println("");
@@ -208,25 +209,25 @@ class Application {
 				cont = false;
 				break;
 			case 1:
-				handler.changeAccountName();
+				accountHandler.changeAccountName();
 				break;
 			case 2:
-				handler.changeAccountSurname();
+				accountHandler.changeAccountSurname();
 				break;
 			case 3:
-				handler.changePhoneNumber();
+				accountHandler.changePhoneNumber();
 				break;
 			case 4:
-				handler.changeEmailAddress();
+				accountHandler.changeEmailAddress();
 				break;
 			case 5:
-				handler.changeAccountPw();
+				accountHandler.changeAccountPw();
 				break;
 			case 6:
-				handler.printAccountDetails();
+				accountHandler.printAccountDetails();
 				break;
 			case 7:
-				if(handler.deleteAccount())
+				if(accountHandler.deleteAccount())
 					return true;
 				break;
 			}
@@ -240,9 +241,10 @@ class Application {
 		int choice = 0;
 		
 		do {
-			System.out.println("* Pw_C0ll3ct0r - PASSWORDS MANAGER *\n");
-			System.out.println("1. Add a new password.");
-			System.out.println("2. See your passwords.");
+			System.out.println("\n* Pw_C0ll3ct0r - PASSWORDS MANAGER *\n");
+			System.out.println("1. Insert a new password.");
+			System.out.println("2. See a specific password.");
+			System.out.println("3. See all passwords");
 			System.out.println("0. Come back.");
 			
 			do {
@@ -252,26 +254,113 @@ class Application {
 				}catch(NumberFormatException e) {
 					e.setStackTrace(null);
 				}
-			}while(choice < 0 || choice > 2);
+			}while(choice < 0 || choice > 3);
 			
 			switch(choice) {
 			case 0:
 				cont = false;
 				break;
 			case 1:
-				// TODO
+				pwHandler.addPassword();
 				break;
 			case 2:
-				// TODO
+				pwHandler.printPassword();
+				break;
+			case 3:
+				pwHandler.printPasswords();
 				break;
 			}
 		}while(cont);
 		System.out.println("");
 	}
 	
-	private void homePremiumPwManager() {
-		// TODO Auto-generated method stub
+	private void homePremiumPwManager() throws IOException {
+		boolean cont = true;
+		int choice = 0;
 		
+		do {
+			System.out.println("\n* Pw_C0ll3ct0r - PREMIUM PASSWORD MANAGER *\n");
+			System.out.println("1. Insert a new password.");
+			System.out.println("2. See a specific password.");
+			System.out.println("3. See your password list.");
+			System.out.println("4. Change a password.");
+			System.out.println("0. Come back.");
+			
+			do {
+				System.out.print("Your choice: ");
+				try {
+					choice = Integer.parseInt(bR.readLine());
+				}catch(NumberFormatException e) {
+					e.setStackTrace(null);
+				}
+			}while(choice < 0 || choice > 4);
+			
+			switch(choice) {
+			case 0:
+				cont = false;
+				break;
+			case 1:
+				pwHandler.addPassword();
+				break;
+			case 2:
+				pwHandler.printPassword();
+				break;
+			case 3:
+				pwHandler.printPasswords();
+				break;
+			case 4:
+				Password pw = pwHandler.searchPw();
+				if(pw != null)
+					homePwModifier(pw);
+				break;
+			}
+		}while(cont);
+		System.out.println("");
+	}
+	
+	private void homePwModifier(Password pw) throws IOException {
+		boolean cont = true;
+		int choice = 0;
+		
+		do {
+			System.out.println("\n* Pw_C0ll3ct0r - PASSWORD MODIFIER *\n");
+			System.out.println("1. Change the name of " + pw.getID() + ".");
+			System.out.println("2. Change the username of " + pw.getID() + ".");
+			System.out.println("3. Change the password of " + pw.getID() + ".");
+			System.out.println("4. Change the information of " + pw.getID() + ".");
+			System.out.println("5. Remove " + pw.getID() + ".");
+			System.out.println("0. Come back.");
+			
+			do {
+				System.out.print("Your choice: ");
+				try {
+					choice = Integer.parseInt(bR.readLine());
+				}catch(NumberFormatException e) {
+					e.setStackTrace(null);
+				}
+			}while(choice < 0 || choice > 5);
+			
+			switch(choice) {
+			case 0:
+				cont = false;
+				break;
+			case 1:
+				pwHandler.changePwName(pw);
+				break;
+			case 2:
+				pwHandler.changePwUsername(pw);
+				break;
+			case 3:
+				pwHandler.changePw(pw);
+				break;
+			case 4:
+				pwHandler.changePwInformation(pw);
+				break;
+			case 5:
+				pwHandler.removePw(pw);
+				break;
+			}
+		}while(cont);
 	}
 	
 }
