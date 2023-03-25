@@ -42,7 +42,7 @@ class Application {
 	
 	private void homeApp() throws IOException {
 		boolean cont = true;
-		int choice = 0;
+		String choice;
 		
 		do {
 			System.out.println("* Pw_C0ll3ct0r - HOME *\n");
@@ -52,18 +52,14 @@ class Application {
 			
 			do {
 				System.out.print("Your choice: ");
-				try {
-					choice = Integer.parseInt(bR.readLine());
-				}catch(NumberFormatException e) {
-					e.setStackTrace(null);
-				}
-			}while(choice < 0 || choice > 2);
+				choice = bR.readLine();
+			}while(!checkChoice(2, choice));
 			
 			switch(choice) {
-			case 0:
+			case "0":
 				cont = false;
 				break;
-			case 1:
+			case "1":
 				accountHandler.login();
 				if(accountIdx != null) {
 					if(accountList.get(accountIdx.intValue())
@@ -73,7 +69,7 @@ class Application {
 						yourUserHome();
 				}
 				break;
-			case 2:
+			case "2":
 				accountHandler.createAccount();
 				break;
 			}
@@ -84,7 +80,7 @@ class Application {
 	
 	private void yourUserHome() throws NumberFormatException, IOException {
 		boolean cont = true;
-		int choice = 0;
+		String choice;
 		
 		do {
 			System.out.println("* Pw_C0ll3ct0r - YOUR HOME *\n");
@@ -93,27 +89,22 @@ class Application {
 			System.out.println("0. Logout.");
 			
 			do {
-				System.out.print("Your choice: ");
-				try {
-					choice = Integer.parseInt(bR.readLine());
-				}catch(NumberFormatException e) {
-					e.setStackTrace(null);
-				}
-			}while(choice < 0 || choice > 2);
+				choice = bR.readLine();
+			}while(checkChoice(2, choice));
 			
 			switch(choice) {
-			case 0:
+			case "0":
 				accountHandler.logout();
 				accountIdx = null;
 				cont = false;
 				break;
-			case 1:
+			case "1":
 				if(homeAccountManager()) {
 					accountHandler.logout();
 					cont = false;
 				}
 				break;
-			case 2:
+			case "2":
 				if(accountList.get(accountIdx.intValue()).getAccountType()
 						.compareTo(AccountTypes.USER) == 0)
 					homePwManager();
@@ -127,7 +118,7 @@ class Application {
 
 	private void yourAdminHome() throws NumberFormatException, IOException {
 		boolean cont = true;
-		int choice = 0;
+		String choice;
 		
 		do {
 			System.out.println("* Pw_C0ll3ct0r - YOUR HOME *\n");
@@ -141,38 +132,34 @@ class Application {
 			
 			do {
 				System.out.print("Your choice: ");
-				try {
-					choice = Integer.parseInt(bR.readLine());
-				}catch(NumberFormatException e) {
-					e.setStackTrace(null);
-				}
-			}while(choice < 0 || choice > 6);
+				choice = bR.readLine();
+			}while(checkChoice(6, choice));
 			
 			switch(choice) {
-			case 0:
+			case "0":
 				accountHandler.logout();
 				accountIdx = null;
 				cont = false;
 				break;
-			case 1:
+			case "1":
 				if(homeAccountManager()) {
 					accountHandler.logout();
 					cont = false;
 				}
 				break;
-			case 2:
+			case "2":
 				accountHandler.addPremiumKey();
 				break;
-			case 3:
+			case "3":
 				accountHandler.removePremiumKey();
 				break;
-			case 4:
+			case "4":
 				accountHandler.printPremiumKeys();
 				break;
-			case 5:
+			case "5":
 				accountHandler.printAccountList();
 				break;
-			case 6:
+			case "6":
 				Installer.uninstallApp(this.data, 
 						accountList.get(accountIdx.intValue()));
 			}
@@ -182,7 +169,7 @@ class Application {
 
 	private boolean homeAccountManager() throws IOException {
 		boolean cont = true;
-		int choice = 0;
+		String choice;
 		
 		do {
 			System.out.println("\n* Pw_C0ll3ct0r - ACCOUNT MANAGER *\n");
@@ -197,36 +184,32 @@ class Application {
 			
 			do {
 				System.out.print("Your choice: ");
-				try {
-					choice = Integer.parseInt(bR.readLine());
-				}catch(NumberFormatException e) {
-					e.setStackTrace(null);
-				}
-			}while(choice < 0 || choice > 7);
+				choice = bR.readLine();
+			}while(checkChoice(7, choice));
 			
 			switch(choice) {
-			case 0:
+			case "0":
 				cont = false;
 				break;
-			case 1:
+			case "1":
 				accountHandler.changeAccountName();
 				break;
-			case 2:
+			case "2":
 				accountHandler.changeAccountSurname();
 				break;
-			case 3:
+			case "3":
 				accountHandler.changePhoneNumber();
 				break;
-			case 4:
+			case "4":
 				accountHandler.changeEmailAddress();
 				break;
-			case 5:
+			case "5":
 				accountHandler.changeAccountPw();
 				break;
-			case 6:
+			case "6":
 				accountHandler.printAccountDetails();
 				break;
-			case 7:
+			case "7":
 				if(accountHandler.deleteAccount())
 					return true;
 				break;
@@ -238,7 +221,7 @@ class Application {
 
 	private void homePwManager() throws IOException {
 		boolean cont = true;
-		int choice = 0;
+		String choice;
 		
 		do {
 			System.out.println("\n* Pw_C0ll3ct0r - PASSWORDS MANAGER *\n");
@@ -249,24 +232,20 @@ class Application {
 			
 			do {
 				System.out.print("Your choice: ");
-				try {
-					choice = Integer.parseInt(bR.readLine());
-				}catch(NumberFormatException e) {
-					e.setStackTrace(null);
-				}
-			}while(choice < 0 || choice > 3);
+				choice = bR.readLine();
+			}while(checkChoice(3, choice));
 			
 			switch(choice) {
-			case 0:
+			case "0":
 				cont = false;
 				break;
-			case 1:
+			case "1":
 				pwHandler.addPassword();
 				break;
-			case 2:
+			case "2":
 				pwHandler.printPassword();
 				break;
-			case 3:
+			case "3":
 				pwHandler.printPasswords();
 				break;
 			}
@@ -276,7 +255,7 @@ class Application {
 	
 	private void homePremiumPwManager() throws IOException {
 		boolean cont = true;
-		int choice = 0;
+		String choice;
 		
 		do {
 			System.out.println("\n* Pw_C0ll3ct0r - PREMIUM PASSWORD MANAGER *\n");
@@ -288,27 +267,23 @@ class Application {
 			
 			do {
 				System.out.print("Your choice: ");
-				try {
-					choice = Integer.parseInt(bR.readLine());
-				}catch(NumberFormatException e) {
-					e.setStackTrace(null);
-				}
-			}while(choice < 0 || choice > 4);
+				choice = bR.readLine();
+			}while(checkChoice(4, choice));
 			
 			switch(choice) {
-			case 0:
+			case "0":
 				cont = false;
 				break;
-			case 1:
+			case "1":
 				pwHandler.addPassword();
 				break;
-			case 2:
+			case "2":
 				pwHandler.printPassword();
 				break;
-			case 3:
+			case "3":
 				pwHandler.printPasswords();
 				break;
-			case 4:
+			case "4":
 				Password pw = pwHandler.searchPw();
 				if(pw != null)
 					homePwModifier(pw);
@@ -320,7 +295,7 @@ class Application {
 	
 	private void homePwModifier(Password pw) throws IOException {
 		boolean cont = true;
-		int choice = 0;
+		String choice;
 		
 		do {
 			System.out.println("\n* Pw_C0ll3ct0r - PASSWORD MODIFIER *\n");
@@ -333,34 +308,44 @@ class Application {
 			
 			do {
 				System.out.print("Your choice: ");
-				try {
-					choice = Integer.parseInt(bR.readLine());
-				}catch(NumberFormatException e) {
-					e.setStackTrace(null);
-				}
-			}while(choice < 0 || choice > 5);
+				choice = bR.readLine();
+			}while(checkChoice(5, choice));
 			
 			switch(choice) {
-			case 0:
+			case "0":
 				cont = false;
 				break;
-			case 1:
+			case "1":
 				pwHandler.changePwName(pw);
 				break;
-			case 2:
+			case "2":
 				pwHandler.changePwUsername(pw);
 				break;
-			case 3:
+			case "3":
 				pwHandler.changePw(pw);
 				break;
-			case 4:
+			case "4":
 				pwHandler.changePwInformation(pw);
 				break;
-			case 5:
+			case "5":
 				pwHandler.removePw(pw);
 				break;
 			}
 		}while(cont);
+	}
+	
+	private boolean checkChoice(int up, String choice) {
+		Integer numChoice;
+		try {
+			numChoice = Integer.parseInt(choice);
+		}catch(NumberFormatException e) {
+			return false;
+		}
+		
+		if(numChoice < 0 || numChoice > up)
+			return false;
+		else
+			return true;
 	}
 	
 }
