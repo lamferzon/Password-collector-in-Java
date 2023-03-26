@@ -89,8 +89,9 @@ class Application {
 			System.out.println("0. Logout.");
 			
 			do {
+				System.out.print("Your choice: ");
 				choice = bR.readLine();
-			}while(checkChoice(2, choice));
+			}while(!checkChoice(2, choice));
 			
 			switch(choice) {
 			case "0":
@@ -133,7 +134,7 @@ class Application {
 			do {
 				System.out.print("Your choice: ");
 				choice = bR.readLine();
-			}while(checkChoice(6, choice));
+			}while(!checkChoice(6, choice));
 			
 			switch(choice) {
 			case "0":
@@ -185,7 +186,7 @@ class Application {
 			do {
 				System.out.print("Your choice: ");
 				choice = bR.readLine();
-			}while(checkChoice(7, choice));
+			}while(!checkChoice(7, choice));
 			
 			switch(choice) {
 			case "0":
@@ -233,7 +234,7 @@ class Application {
 			do {
 				System.out.print("Your choice: ");
 				choice = bR.readLine();
-			}while(checkChoice(3, choice));
+			}while(!checkChoice(3, choice));
 			
 			switch(choice) {
 			case "0":
@@ -268,7 +269,7 @@ class Application {
 			do {
 				System.out.print("Your choice: ");
 				choice = bR.readLine();
-			}while(checkChoice(4, choice));
+			}while(!checkChoice(4, choice));
 			
 			switch(choice) {
 			case "0":
@@ -309,7 +310,7 @@ class Application {
 			do {
 				System.out.print("Your choice: ");
 				choice = bR.readLine();
-			}while(checkChoice(5, choice));
+			}while(!checkChoice(5, choice));
 			
 			switch(choice) {
 			case "0":

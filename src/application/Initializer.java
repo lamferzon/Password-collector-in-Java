@@ -30,8 +30,10 @@ class Initializer {
 		
 		String startPath;
 		do {
-			System.out.print("Starting path: ");
+			System.out.print("Starting path (QUIT to exit): ");
 			startPath = bR.readLine();
+			if(startPath.compareTo("QUIT") == 0)
+				System.exit(0);
 		}while(Initializer.checkStartPath(startPath));
 		
 		File findAppDataFile = new File(startPath + "/app_data.json");
