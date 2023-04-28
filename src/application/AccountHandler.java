@@ -144,6 +144,7 @@ class AccountHandler {
 				System.out.println("\nWelcome back " + temp.getName() + 
 						" (" + temp.getID() + ")!");
 			}else {
+				Application.accountIdx = null;
 				System.out.println("\nAttention! Password or email address are wrong.");
 			}
 		}else {

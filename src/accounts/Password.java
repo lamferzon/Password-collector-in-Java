@@ -11,12 +11,13 @@ public class Password implements Comparable<Password>{
 	private String username;
 	private String pw;
 	private String information;
-	private static CaesarEncryptor cE = new ModCaesarEncryptor(15);
+	private CaesarEncryptor cE;
 	
 	// Builders
 	public Password(String ID, String name, String username, String pw) {
 		this.setFields(ID, name, username, pw);
 		this.information = "empty field";
+		this.cE = new ModCaesarEncryptor(15);
 	}
 	
 	public Password(String ID, String name, String username, String pw, String information) {
@@ -82,7 +83,7 @@ public class Password implements Comparable<Password>{
 				"Information: " + this.information;
 	}
 	
-	public String toStringDecrypted() {
+	public String decryptedToString() {
 		return "ID: " + this.ID + "\n" + 
 				"Name: " + this.name + "\n" + 
 				"Username: " + this.username + "\n" +

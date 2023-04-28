@@ -15,7 +15,7 @@ public abstract class Account implements Comparable<Account>{
 	protected String phoneNumber;
 	protected String accountEmail;
 	protected String accountPw;
-	protected static CaesarEncryptor cE = new ModCaesarEncryptor(15);
+	protected CaesarEncryptor cE;
 	
 	// Builder
 	public Account(String name, String surname, String phoneNumber,
@@ -25,6 +25,7 @@ public abstract class Account implements Comparable<Account>{
 		this.phoneNumber = phoneNumber;
 		this.accountEmail = accountEmail;
 		this.accountPw = accountPw;
+		this.cE = new ModCaesarEncryptor(15);
 	}
 	
 	// Getters
@@ -82,7 +83,7 @@ public abstract class Account implements Comparable<Account>{
 		boolean flag = false;
 		if(!phoneNumber.matches("[0-9]+")) {
 			flag = true;
-			System.out.println("Attention: phone number contains invalid characters. "
+			System.out.println("Attention! Phone number contains invalid characters. "
 					+ "Please insert another one.");
 		}
 		return flag;
@@ -93,7 +94,7 @@ public abstract class Account implements Comparable<Account>{
 		for(Account acc : accountList) {
 			if(acc.getAccountEmail().compareTo(email) == 0) {
 				flag = true;
-				System.out.println("Attention: email address already exists. "
+				System.out.println("Attention! Email address already exists. "
 						+ "Please insert another one.");
 				break;
 			}
@@ -105,7 +106,7 @@ public abstract class Account implements Comparable<Account>{
 		boolean flag = false;
 		if(pw.length() < 8) {
 			flag = true;
-			System.out.println("Attention: pw has to have almost 8 characters. "
+			System.out.println("Attention! Password has to have almost 8 characters. "
 					+ "Please insert another one.");
 		}
 		return flag;
@@ -124,6 +125,5 @@ public abstract class Account implements Comparable<Account>{
 				this.phoneNumber + "\n" + "Account email: " + 
 				this.accountEmail + "\n" + "Account password: " + pwEncrypted;
 	}
-	
 	
 }

@@ -78,7 +78,7 @@ class PasswordHandler {
 		Password pw = acc.searchPw(ID);
 		
 		if(pw!= null)
-			System.out.println(pw.toStringDecrypted());
+			System.out.println(pw.decryptedToString());
 		else
 			System.out.println("\nAttention! " + ID + " doesn't exist.");
 	}
