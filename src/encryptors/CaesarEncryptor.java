@@ -34,18 +34,5 @@ public class CaesarEncryptor implements EncryptorMethods{
 		}
 		return res;
 	}
-	
-	public static void main(String[] args){
-		System.out.println("Original Caesar encryptor\n");
-		CaesarEncryptor ce = new CaesarEncryptor();
-		String s1 = "Lamferzon-1998Ferrari4e!";
-		String s2 = "G00glareCh3v3rb0!1998";
-		String s3 = "Ferrari4e-2023";
-		String[] crypted = ce.encrypts(s1, s2, s3);
-		String[] decrypted = ce.decrypts(crypted);
-		for(int i = 0; i < crypted.length; i++) {
-			System.out.println(i + ". " + crypted[i] + " <--> " + decrypted[i]);
-		}
-	}
 
 }

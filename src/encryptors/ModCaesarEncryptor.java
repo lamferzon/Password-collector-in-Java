@@ -47,17 +47,4 @@ public class ModCaesarEncryptor extends CaesarEncryptor{
 		return lag;
 	}
 	
-	public static void main(String[] args){
-		System.out.println("Modified Caesar encryptor\n");
-		ModCaesarEncryptor mce = new ModCaesarEncryptor();
-		String s1 = "Lamferzon-1998Ferrari4e!";
-		String s2 = "G00glareCh3v3rb0!1998";
-		String s3 = "Ferrari4e-2023";
-		String[] crypted = mce.encrypts(s1, s2, s3);
-		String[] decrypted = mce.decrypts(crypted);
-		for(int i = 0; i < crypted.length; i++) {
-			System.out.println(i + ". " + crypted[i] + " <--> " + decrypted[i]);
-		}
-	}
-	
 }
