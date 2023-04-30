@@ -5,17 +5,24 @@ import java.util.Random;
 public class ModCaesarEncryptor extends CaesarEncryptor{
 	
 	// Fields
-	protected int max_lag;
+	protected static final int MIN_LAG = 7;
+	protected static final int MAX_LAG = 25;
+	protected int cur_max_lag;
 	protected Random ran;
 	
 	// Builders
 	public ModCaesarEncryptor(){
-		max_lag = 10;
+		cur_max_lag = 25;
 		ran = new Random();
 	}
 	
 	public ModCaesarEncryptor(int max_lag){
-		this.max_lag = max_lag;
+		if(max_lag > MAX_LAG)
+			this.cur_max_lag = MAX_LAG;
+		else if(max_lag < MIN_LAG)
+			this.cur_max_lag = MIN_LAG;
+		else
+			this.cur_max_lag = MAX_LAG;
 		ran = new Random();
 	}
 	
@@ -24,7 +31,7 @@ public class ModCaesarEncryptor extends CaesarEncryptor{
 		String[] results = new String[strs.length];
 		for(int i = 0; i < strs.length; i++) {
 			int lag = getLag();
-			char lagStr = (char)(lag*10 + 3);
+			char lagStr = (char)(lag*5 + 2);
 			results[i] = startAlgorithm(strs[i], lag) + lagStr;
 		}
 		return results;
@@ -35,7 +42,7 @@ public class ModCaesarEncryptor extends CaesarEncryptor{
 		String[] results = new String[strs.length];
 		for(int i = 0; i < strs.length; i++) {
 			int lag = (int)strs[i].charAt(strs[i].length()-1);
-			lag = (lag - 3)/10;
+			lag = (lag - 2)/5;
 			redStrs[i] = strs[i].substring(0, strs[i].length()-1);
 			results[i] = startAlgorithm(redStrs[i], -lag);
 		}
@@ -43,7 +50,7 @@ public class ModCaesarEncryptor extends CaesarEncryptor{
 	}
 
 	protected int getLag() {
-		int lag = MIN_LAG + ran.nextInt(max_lag - MIN_LAG + 1);
+		int lag = MIN_LAG + ran.nextInt(cur_max_lag - MIN_LAG + 1);
 		return lag;
 	}
 	

@@ -3,7 +3,7 @@ package encryptors;
 public class CaesarEncryptor implements EncryptorMethods{
 	
 	// Fields
-	protected static final int MIN_LAG = 3;
+	private static final int MIN_LAG = 3;
 	
 	//Methods
 	public String[] encrypts(String... strs) {
@@ -23,16 +23,23 @@ public class CaesarEncryptor implements EncryptorMethods{
 	}
 	
 	protected String startAlgorithm(String str, int lag) {
-		String res = null;
-		int[] numVect = new int[str.length()+1];
+		String res = "";
 		for(int i = 0; i < str.length(); i++) {
-			numVect[i] = ((int) str.charAt(i)) + lag;
-			if(res == null)
-				res  = String.valueOf((char)numVect[i]);
-			else
-				res = res + String.valueOf((char)numVect[i]);
+			int char2Num = ((int) str.charAt(i)) + lag;
+			if(lag > 0) {
+				if(char2Num > END) {
+					int diff = char2Num - END;
+					char2Num = START + diff - 1;
+				}
+			}else {
+				if(char2Num < START) {
+					int diff = START - char2Num;
+					char2Num = END - diff + 1;
+				}
+			}
+			res  += String.valueOf((char)char2Num);
 		}
 		return res;
 	}
-
+	
 }
