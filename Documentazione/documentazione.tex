@@ -101,9 +101,9 @@ marginparwidth=1.5cm, marginparsep=0.4cm, margin=1.5cm]{geometry}
 		[
 			{
 				"installationDetails":{
-					"root_path":"C:\/Users\/loren\/Desktop\/Pw_C0ll3ct0r",
-					"passwords_path":"C:\/Users\/loren\/Desktop\/Pw_C0ll3ct0r\/Collections",
-					"installation_datetime":"2023\/04\/29 18:53:27"}
+					"root_path":"C:\\Users\\loren\\Desktop\/Pw_C0ll3ct0r",
+					"passwords_path":"C:\\Users\\loren\\Desktop\/Pw_C0ll3ct0r\/Collections",
+					"installation_datetime":"2023\/04\/30 16:01:44"}
 			}
 		]
 		\end{Verbatim}
@@ -114,14 +114,14 @@ marginparwidth=1.5cm, marginparsep=0.4cm, margin=1.5cm]{geometry}
 			{
 				"premiumKey":{
 					"activation_status":"true",
-					"linked_email_address":"twzmv\u0082w6tmwvq9AA@Houiqt6kwuS",
-					"key_value":"K^KVKX^K7;C:Ag"}
+					"linked_email_address":"~!$w ,!@~w! {CKKJRy\u007Fs{~@u!\u007F\\",
+					"key_value":"PcP[P]cP<@H?FM"}
 			},
 			{
 				"premiumKey":{
 					"activation_status":"false",
-					"linked_email_address":"iy|uv5ihyiplypG{pzjhsp5p{I",
-					"key_value":"]kv\u007F~kKx~yxsy+<:<=g"}
+					"linked_email_address":"k{~wx7kj{krn{rI}r|ljur7r}\/",
+					"key_value":"LrjxxjrLh;9;<\/"}
 			}
 		]
 		\end{Verbatim}
@@ -131,61 +131,85 @@ marginparwidth=1.5cm, marginparsep=0.4cm, margin=1.5cm]{geometry}
 		[
 			{
 				"account":{
-					"account_email":"q3qjtsn7Exyzijsyn3zsngl3ny5",
+					"account_email":"}?}v \u007FzCQ$%&uv\u007F%z?&\u007Fzsx?z%W",
 					"account_type":"ADMINISTRATOR",
 					"account_ID":"AD_0",
 					"surname":"Leoni",
-					"account_pw":"Mrwxlx6=9=]",
+					"account_pw":"Puz{o{9@<<>",
 					"name":"Lorenzo",
-					"phone_number":":;><<77:77I"}
-			},
-			{
-				"account":{
-					"account_email":"qtwjs\u007Ft3qjtsn6>>=Elrfnq3htr5",
-					"account_type":"PREMIUM_USER",
-					"account_ID":"US_1",
-					"surname":"Leoni",
-					"account_pw":"Lqvwkw5<88S",
-					"name":"Lorenzo",
-					"phone_number":":;><<77:77I"}
-			},
-			{
-				"account":{
-					"account_email":"qsy\u0080s8|onJry~wksv8mywg",
-					"account_type":"USER",
-					"account_ID":"US_2",
-					"surname":"Rossi",
-					"account_pw":"JphvvhpJf9797FI",
-					"name":"Giovanni",
-					"phone_number":";<=A9;?>@8S"}
-			}
-		]
+					"phone_number":";<?==88;88*"}
+				},
+				{
+					"account":{
+						"account_email":"} #v\u007F+ ?}v \u007FzBJJIQx~rz}?t ~W",
+						"account_type":"PREMIUM_USER",
+						"account_ID":"US_1",
+						"surname":"Leoni",
+						"account_pw":"X}\"#w#AHDHf",
+						"name":"Lorenzo",
+						"phone_number":"BCFDD??B??M"}
+					},
+					{
+						"account":{
+							"account_email":"&#v-B+|}(yT{!u} Bw#!f",
+							"account_type":"USER",
+							"account_ID":"US_2",
+							"surname":"Bianchi",
+							"account_pw":"ZyzzHHw99z",
+							"name":"Roberto",
+							"phone_number":"LNRRJKPNMO\u007F"}
+					}
+				]
 		\end{Verbatim}
 	
 		\item \textbf{pw\_US\_1.json}: contiene l'elenco delle password e le informazioni a esse associate dell'account avente l'identificativo US\_1. Se il campo \verb|"information"| è \verb|"empty field"|, allora significa che l'utente non ha voluto specificare alcun dettaglio aggiuntivo per la password corrispondente. 
 		\begin{Verbatim}[tabsize=1]
 		[
 			{
-				"password":{
-					"pw":"Iusvx6Z{zz6e'?",
-					"name":"Amazon.it",
-					"information":"empty field",
-					"ID":"PW_0",
-					"username":"Tiunmz\u0082wvS"}
+				"password":{"pw":"WD!$&Dh)(((D5FDFDf",
+				"name":"Amazon.it",
+				"information":"empty field",
+				"ID":"PW_0",
+				"username":"!v\"{z'\/$#k"}
 			},
 			{
-				"password":{
-					"pw":"[tqfw8&Hm8Gjqq5&5",
-					"name":"Navigraph.com",
-					"information":"Navigraph is a website where you 
-							can create a Flight Plan (FP) for FS2020",
-					"ID":"PW_1",
-					"username":"zsvy~VoyCBg"}
+				"password":{"pw":"k$!v'zzHBGEGH6k",
+				"name":"Navigraph.com",
+				"information":"Navigraph.com is a web site where 
+						you can create a Flight Plan (FP) for FS2020",
+				"ID":"PW_1",
+				"username":"%~!$)az$NMk"}
 			}
 		]
 		\end{Verbatim}
-		
-	
 	\end{itemize}
+
+	\section{Versione modificata del cifrario di Cesare}
+	L'algoritmo di Cesare consiste nello spostare in avanti di \num{3} posizioni ogni lettera di una parola, riferendosi alla tabella ASCII. Per esempio, "\textbf{Lorenzo-1998}" diventa "\textbf{Oruhq\}r04<<;}". Nella sua versione modificata, invece, lo spostamento ($lag$) è scelto casualmente tra \num{7} e \num{25} (\num{15} in PasswordCollector). Tuttavia, per decifrare la parola è necessario conoscere il $lag$, pertanto in coda a essa viene aggiunto un carattere dal quale è possibile risalire allo spostamento casuale generato dall'algoritmo. Le formule di cifratura e di decifrazione del $lag$ sono rispettivamente
+	\begin{verbatim}
+		char charLag = (char) (lag*5 + 2)
+		lag = ((int) charLag - 2)/5;
+	\end{verbatim}
+	dove \verb|charLag| rappresenta il simbolo in tabella ASCII la cui posizione risulta dall'applicazione della formula al \verb|lag|. Se lo spostamento vale \num{7}, allora $7\cdot5 + 2 = 37$, il quale corrisponde al simbolo "\%" in tabella ASCII. Se, invece, il $lag$ è uguale a \num{25}, allora $25\cdot5 + 2 = 127$; esso coincide con l'ultimo simbolo utilizzabile in quanto, per questioni rappresentative e di codifica, è stato deciso di utilizzare soltanto i simboli in tabella ASCII che vanno dalla posizione \num{32} alla \num{127}. Di seguito è riportato un esempio di decifrazione di una password criptata:
+	\begin{center}
+		"\textbf{]vshyll:4979:(\%}"\\
+		"\textbf{\%}" corrisponde a \num{37} in tabella ASCII\\
+		$lag$ = $(37-2)/5$ = 7\\
+		\num{-7} per ogni carattere: "\textbf{Volaree3-2023!}"
+	\end{center}
+	
+	\section{Repository GitHub}
+	Il codice sorgente di PasswordCollector è disponibile per il download al seguente repository:
+	\begin{center}
+		\url{https://github.com/lamferzon/Password-collector-in-Java}
+	\end{center}
+	\begin{figure}[h!]
+		\centering
+		\subfigure[]{\label{Screen1}\includegraphics[height=200px]{Immagini/Screenshot1.jpg}}
+		\subfigure[]{\label{Screen2}\includegraphics[height=200px]{Immagini/Screenshot2.jpg}}
+		\caption[]{un paio di screenshot dell'applicazione in esecuzione.}
+		\label{App_screens}
+	\end{figure}
+	
 
 \end{document}
