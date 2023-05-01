@@ -175,8 +175,9 @@ marginparwidth=1.5cm, marginparsep=0.4cm, margin=1.5cm]{geometry}
 			{
 				"password":{"pw":"k$!v'zzHBGEGH6k",
 				"name":"Navigraph.com",
-				"information":"Navigraph.com is a web site where 
-						you can create a Flight Plan (FP) for FS2020",
+				"information":"Navigraph.com is a 
+						web site where you can create 
+						a Flight Plan (FP) for FS2020",
 				"ID":"PW_1",
 				"username":"%~!$)az$NMk"}
 			}
@@ -185,10 +186,10 @@ marginparwidth=1.5cm, marginparsep=0.4cm, margin=1.5cm]{geometry}
 	\end{itemize}
 
 	\section{Versione modificata del cifrario di Cesare}
-	L'algoritmo di Cesare consiste nello spostare in avanti di \num{3} posizioni ogni lettera di una parola, riferendosi alla tabella ASCII. Per esempio, "\textbf{Lorenzo-1998}" diventa "\textbf{Oruhq\}r04<<;}". Nella sua versione modificata, invece, lo spostamento ($lag$) è scelto casualmente tra \num{7} e \num{25} (\num{15} in PasswordCollector). Tuttavia, per decifrare la parola è necessario conoscere il $lag$, pertanto in coda a essa viene aggiunto un carattere dal quale è possibile risalire allo spostamento casuale generato dall'algoritmo. Le formule di cifratura e di decifrazione del $lag$ sono rispettivamente
+	L'algoritmo di Cesare consiste nello spostare in avanti di \num{3} posizioni ogni lettera di una parola, riferendosi alla tabella ASCII. Per esempio, "\textbf{Lorenzo-1998}" diventa "\textbf{Oruhq\}r04<<;}". Nella sua versione modificata, invece, lo spostamento ($lag$) è scelto casualmente tra \num{7} e \num{25} (\num{15} in PasswordCollector). Tuttavia, per decifrare la parola è necessario conoscere il $lag$, pertanto in coda a essa viene aggiunto un carattere dal quale è possibile risalire allo spostamento casuale generato dall'algoritmo. Le formule di cifratura e di decifrazione del $lag$ sono rispettivamente:
 	\begin{verbatim}
 		char charLag = (char) (lag*5 + 2)
-		lag = ((int) charLag - 2)/5;
+		lag = ((int) charLag - 2)/5
 	\end{verbatim}
 	dove \verb|charLag| rappresenta il simbolo in tabella ASCII la cui posizione risulta dall'applicazione della formula al \verb|lag|. Se lo spostamento vale \num{7}, allora $7\cdot5 + 2 = 37$, il quale corrisponde al simbolo "\%" in tabella ASCII. Se, invece, il $lag$ è uguale a \num{25}, allora $25\cdot5 + 2 = 127$; esso coincide con l'ultimo simbolo utilizzabile in quanto, per questioni rappresentative e di codifica, è stato deciso di utilizzare soltanto i simboli in tabella ASCII che vanno dalla posizione \num{32} alla \num{127}. Di seguito è riportato un esempio di decifrazione di una password criptata:
 	\begin{center}
@@ -201,7 +202,7 @@ marginparwidth=1.5cm, marginparsep=0.4cm, margin=1.5cm]{geometry}
 	\section{Repository GitHub}
 	Il codice sorgente di PasswordCollector è disponibile per il download al seguente repository:
 	\begin{center}
-		\url{https://github.com/lamferzon/Password-collector-in-Java}
+		\url{https://github.com/lamferzon/PasswordCollector}
 	\end{center}
 	\begin{figure}[h!]
 		\centering
@@ -211,5 +212,4 @@ marginparwidth=1.5cm, marginparsep=0.4cm, margin=1.5cm]{geometry}
 		\label{App_screens}
 	\end{figure}
 	
-
 \end{document}
