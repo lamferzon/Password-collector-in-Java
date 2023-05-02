@@ -329,7 +329,8 @@ class Application {
 				pwHandler.changePwInformation(pw);
 				break;
 			case "5":
-				pwHandler.removePw(pw);
+				if(pwHandler.removePw(pw))
+					return;
 				break;
 			}
 		}while(cont);

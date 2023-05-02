@@ -156,7 +156,7 @@ class PasswordHandler {
 		System.out.println("\nWell done! Information of " + pw.getID() + " changed.");
 	}
 
-	protected void removePw(Password pw) throws IOException {
+	protected boolean removePw(Password pw) throws IOException {
 		String choice = null;
 		System.out.println();
 		do {
@@ -168,6 +168,9 @@ class PasswordHandler {
 			PremiumUserAccount acc = (PremiumUserAccount) accountList.get(Application.accountIdx);
 			acc.removePw(pw.getID());
 			System.out.println("\nWell done! " + pw.getID() + " removed.");
+			return true;
+		}else {
+			return false;
 		}
 	}
 
