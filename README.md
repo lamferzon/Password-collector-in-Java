@@ -8,8 +8,24 @@ Many times we have to write our passwords on a paper sheet because we are distru
 + the storage of personal data takes place with JSON documents, an interchange format which makes easy the portability not only of information content, but also of the application as a result;
 + the encryption of sensitive data takes place with a modified version of the Caesar cipher. It is based on a random shift in ASCII table of each character that makes up the password to encrypt;
 + the interaction with *PasswordCollector* is via a command line interface.
+
 To underline, finally, the opportunity to register multiple accounts such that the same instance of the application can be used by more users without one being able to access the sensitive contents of the other.
 
+## UML Class Diagrams ##
+- [x] UML Class Diagram of the package *encryptors*.
 
+![Image 1](documentazione/UML/encryptors.jpg)
+
+- [x] UML Class Diagram of the package *accounts*.
+
+![Image 1](documentazione/UML/accounts.jpg)
+
+- [x] UML Class Diagram of the package *application*, part 1.
+
+![Image 1](documentazione/UML/application1.jpg)
+
+- [x] UML Class Diagram of the package *application*, part 2.
+
+![Image 1](documentazione/UML/application2.jpg)
 
 
