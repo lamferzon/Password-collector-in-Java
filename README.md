@@ -16,7 +16,7 @@ To underline, finally, the opportunity to register multiple accounts such that t
 2. Open the Command Prompt in which you have save the runnable JAR file.
 3. Execute the following command:
 ``` java
-jar -jar Pw_C0ll3ct0r.jar
+java -jar Pw_C0ll3ct0r.jar
 ```
 4. Choose the directory in which you want to install PasswordCollector.
 5. Follow the instructions to create the administrator account.
