@@ -11,6 +11,16 @@ Many times we have to write our passwords on a paper sheet because we are distru
 
 To underline, finally, the opportunity to register multiple accounts such that the same instance of the application can be used by more users without one being able to access the sensitive contents of the other.
 
+## Installation
+1. Download the latest release.
+2. Open the Command Prompt in which you have save the runnable JAR file.
+3. Execute the following command:
+``` java
+jar -jar Pw_C0ll3ct0r.jar
+```
+4. Choose the directory in which you want to install PasswordCollector.
+5. Follow the instructions to create the administrator account.
+
 ## UML Class Diagrams ##
 - [x] UML Class Diagram of the package *encryptors*.
 
