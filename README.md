@@ -1,5 +1,11 @@
 # PasswordCollector, a Java application to manage locally our passwords
 
+![GitHub repo size](https://img.shields.io/github/repo-size/lamferzon/PasswordCollector?label=repo%20size)
+![Lines of code](https://img.shields.io/tokei/lines/github/lamferzon/PasswordCollector?color=yellow)
+![GitHub repo file count](https://img.shields.io/github/directory-file-count/lamferzon/PasswordCollector?color=g)
+![GitHub](https://img.shields.io/github/license/lamferzon/PasswordCollector?color=red)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/lamferzon/PasswordCollector?color=lightblue)
+
 ## Author ##
 + **Lorenzo LEONI**, postgraduate in Computer Engineering at University of Bergamo.
 
